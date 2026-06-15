@@ -9,6 +9,9 @@ import { Input } from "@/components/ui/input";
 import { BookingsLast30DaysChart, DistributionPie } from "./booking-charts";
 import { BookingsTable } from "./bookings-table";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type BookingParams = {
   q?: string;
   program?: string;

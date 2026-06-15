@@ -10,6 +10,9 @@ import { AttendanceTrendChart, OrientationCountryChart, OrientationLineChart } f
 import { createOrientationSlot, updateOrientationPricing } from "./actions";
 import { OrientationSlots } from "./orientation-slots";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function slotKey(batchId: string, key: string) {
   return `orientation_slot_${batchId}_${key}`;
 }

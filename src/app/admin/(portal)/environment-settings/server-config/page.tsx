@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { updateConfig } from "../../orientation-settings/actions";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const get = (config: Record<string, string>, key: string, fallback = "") => config[key] ?? fallback;
 
 export default async function ServerConfigPage() {

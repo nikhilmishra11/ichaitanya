@@ -10,6 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function PaymentLogsPage({ searchParams }: { searchParams: Promise<{ provider?: string; status?: string; currency?: string; q?: string; country?: string; program?: string }> }) {
   const params = await searchParams;
   const where: Prisma.PaymentWhereInput = {

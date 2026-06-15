@@ -11,6 +11,9 @@ import { ProgramBarChart } from "./program-charts";
 import { ProgramCards } from "./program-cards";
 import { saveProgram } from "./actions";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function programKey(programId: string, key: string) {
   return `program_${programId}_${key}`;
 }

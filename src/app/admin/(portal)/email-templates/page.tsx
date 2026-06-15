@@ -12,6 +12,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { formatDate } from "@/lib/utils";
 import { deleteEmailTemplate, duplicateEmailTemplate, saveEmailTemplate, setEmailTemplateStatus } from "./actions";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const variables = ["{{name}}", "{{email}}", "{{program}}", "{{batch}}", "{{session_date}}", "{{session_time}}", "{{zoom_link}}", "{{meeting_id}}", "{{meeting_password}}", "{{payment_amount}}", "{{booking_reference}}", "{{certificate_link}}"];
 const categories = ["Orientation", "Programs", "Aura Night", "Testimonials", "System"];
 const triggers = ["Booking Created", "Payment Successful", "Batch Assigned", "24 Hours Before Session", "1 Hour Before Session", "Aura Night Daily Reminder", "Program Completed", "Testimonial Request", "Manual Email"];

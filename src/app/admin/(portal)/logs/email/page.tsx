@@ -10,6 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function EmailLogsPage({ searchParams }: { searchParams: Promise<{ status?: string; q?: string; template?: string; program?: string }> }) {
   const params = await searchParams;
   const where: Prisma.EmailLogWhereInput = {

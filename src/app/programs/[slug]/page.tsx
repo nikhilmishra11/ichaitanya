@@ -7,6 +7,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
 import { formatCurrency } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function programKey(programId: string, key: string) {
   return `program_${programId}_${key}`;
 }

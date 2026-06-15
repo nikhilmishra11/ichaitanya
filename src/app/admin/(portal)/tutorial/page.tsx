@@ -5,6 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const categories = [
   { name: "Getting Started", icon: BookOpen, articles: ["Dashboard Overview", "Admin Navigation", "Common Workflows"] },
   { name: "Orientation Management", icon: PlayCircle, articles: ["Create Orientation Slots", "Pricing Setup", "Zoom Configuration", "Capacity Management"] },

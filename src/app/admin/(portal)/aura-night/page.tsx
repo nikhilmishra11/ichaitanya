@@ -12,6 +12,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { AuraCountryPie, AuraLineChart, AuraRetentionChart } from "./aura-charts";
 import { cancelAuraEnrollment, markAuraAttendance, saveAuraAutomation, saveAuraLanding, saveAuraSettings } from "./actions";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function auraKey(key: string) {
   return `aura_night_${key}`;
 }

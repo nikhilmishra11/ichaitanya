@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PaymentStatusPie, ProgramPerformanceChart, RegistrationsTrendChart, RevenueTrendChart, TopCountriesChart } from "./dashboard-charts";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type DashboardParams = {
   program?: string;
   country?: string;

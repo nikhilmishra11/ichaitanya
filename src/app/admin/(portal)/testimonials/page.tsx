@@ -11,6 +11,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { formatDate } from "@/lib/utils";
 import { deleteTestimonial, saveTestimonial, setTestimonialStatus } from "./actions";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const meta = (id: string, field: string) => `testimonial_${id}_${field}`;
 
 export default async function TestimonialsAdminPage({ searchParams }: { searchParams: Promise<{ q?: string; program?: string; country?: string; type?: string; status?: string; rating?: string }> }) {
