@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iChaitanya - Return to Your Natural State of Calm</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        themeColor: {
+                            50: '#fdf5f3',
+                            100: '#fbeae5',
+                            200: '#f7c7b0',
+                            300: '#f19f8d',
+                            400: '#eb755a',
+                            500: '#E0573A', // Brand Orange-Red
+                            600: '#cc4f32',
+                            700: '#aa3d24',
+                            800: '#882e1a',
+                            900: '#661f10',
+                        },
+                        spiritualGold: {
+                            50: '#fefcf3',
+                            100: '#fdf7db',
+                            500: '#d97706',
+                            600: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfbfa; /* Warm spiritual off-white */
+            color: #2d312e;
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom smooth page transitions */
+        .page-fade-enter {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .page-fade-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Breathing circle keyframes matching themeColor-500 warm aura */
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); background-color: rgba(224, 87, 58, 0.12); }
+            50% { transform: scale(1.55); background-color: rgba(224, 87, 58, 0.24); }
+        }
+        .breathing-bubble {
+            animation: breathe 7.5s infinite ease-in-out;
+        }
+        /* Sound wave indicator */
+        @keyframes soundWave {
+            0%, 100% { height: 4px; }
+            50% { height: 24px; }
+        }
+        .wave-bar {
+            animation: soundWave 1.2s infinite ease-in-out;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="overflow-x-hidden min-h-screen flex flex-col selection:bg-orange-100 selection:text-orange-950">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-[#fcfbfa]/95 backdrop-blur-md border-b border-stone-200/60 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo with fallback mechanism -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigateTo('home')">
+                    <img id="nav-brand-logo" src="Transparent logo.png" alt="iChaitanya Logo" class="h-10 sm:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('nav-fallback-text-logo').classList.remove('hidden');">
+                    <div id="nav-fallback-text-logo" class="hidden flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-themeColor-500 to-spiritualGold-500 flex items-center justify-center shadow-md shadow-themeColor-500/10">
+                            <span class="text-white font-semibold text-lg serif-title">iC</span>
+                        </div>
+                        <span class="ml-3 font-semibold text-xl tracking-wide text-stone-800 serif-title">iChaitanya</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex space-x-6 text-sm font-medium text-stone-600">
+                    <button onclick="navigateTo('home')" class="nav-link hover:text-themeColor-500 transition duration-150 active-nav-link text-themeColor-500">Home</button>
+                    <button onclick="navigateTo('orientation')" class="nav-link hover:text-themeColor-500 transition duration-150">Orientation</button>
+                    <button onclick="navigateTo('bliss-path')" class="nav-link hover:text-themeColor-500 transition duration-150">Bliss Path</button>
+                    <button onclick="navigateTo('aura-night')" class="nav-link hover:text-themeColor-500 transition duration-150">Aura Night</button>
+                    <button onclick="navigateTo('one-to-one')" class="nav-link hover:text-themeColor-500 transition duration-150">1-to-1</button>
+                    <button onclick="navigateTo('testimonials')" class="nav-link hover:text-themeColor-500 transition duration-150">Testimonials</button>
+                    <button onclick="navigateTo('about')" class="nav-link hover:text-themeColor-500 transition duration-150">About Saarthi</button>
+                    <button onclick="navigateTo('admin')" class="nav-link text-stone-400 hover:text-themeColor-500 transition duration-150 border-l border-stone-200 pl-4 font-semibold"><i class="fa-solid fa-lock-open mr-1"></i>Admin Portal</button>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <button onclick="openCheckout('Orientation Batches', 199, 25)" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-themeColor-500 to-themeColor-600 hover:from-themeColor-600 hover:to-themeColor-700 text-white font-medium text-sm transition-all duration-200 shadow-md shadow-themeColor-500/20 transform hover:-translate-y-0.5">
+                        Join Live Orientation
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-stone-600 hover:text-themeColor-500 focus:outline-none p-2" aria-label="Toggle Menu">
+                        <i id="menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-stone-50 border-t border-stone-200 transition-all duration-300">
+            <div class="px-4 pt-2 pb-6 space-y-3 shadow-lg">
+                <button onclick="navigateTo('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-stone-100 hover:text-themeColor-500">Home</button>
+                <button onclick="navigateTo('orientation'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-stone-100 hover:text-themeColor-500">Orientation</button>
+                <button onclick="navigateTo('bliss-path'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-stone-100 hover:text-themeColor-500">Bliss Path Program</button>
+                <button onclick="navigateTo('aura-night'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-stone-100 hover:text-themeColor-500">Aura Night Meditation</button>
+                <button onclick="navigateTo('one-to-one'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-stone-100 hover:text-themeColor-500">1-to-1 Meditation</button>
+                <button onclick="navigateTo('testimonials'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-stone-100 hover:text-themeColor-500">Testimonials</button>
+                <button onclick="navigateTo('about'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-stone-100 hover:text-themeColor-500">About Saarthi</button>
+                <button onclick="navigateTo('admin'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-base font-bold text-stone-500 hover:bg-stone-100 hover:text-themeColor-500 border-t border-stone-200/80 pt-4"><i class="fa-solid fa-lock-open mr-2"></i>Saarthi Admin Portal</button>
+                <div class="pt-2">
+                    <button onclick="openCheckout('Orientation Batches', 199, 25); toggleMobileMenu()" class="w-full text-center px-4 py-3 rounded-full bg-themeColor-500 text-white font-medium shadow-md">
+                        Join Live Orientation (₹199 / $25)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sound Experience Floating Controller -->
+    <div class="fixed bottom-6 right-6 z-40 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-3 border border-themeColor-100 max-w-xs flex items-center space-x-3 transition-transform duration-300 hover:scale-105">
+        <div class="relative">
+            <button onclick="toggleHealingBowlSound()" id="bowl-play-btn" class="h-11 w-11 rounded-full bg-themeColor-500 hover:bg-themeColor-600 flex items-center justify-center text-white transition duration-200 shadow-md">
+                <i id="bowl-icon" class="fa-solid fa-wind text-lg"></i>
+            </button>
+        </div>
+        <div class="pr-2">
+            <p class="text-[11px] uppercase tracking-wider font-semibold text-stone-400">Ambient Practice</p>
+            <p class="text-xs font-bold text-stone-700" id="bowl-status">Activate Calm Frequency</p>
+        </div>
+        <!-- Soundwave simulation -->
+        <div id="soundwave" class="hidden flex items-end space-x-1 h-6">
+            <span class="wave-bar w-[3px] bg-themeColor-500 rounded-full"></span>
+            <span class="wave-bar w-[3px] bg-themeColor-500 rounded-full"></span>
+            <span class="wave-bar w-[3px] bg-themeColor-500 rounded-full"></span>
+            <span class="wave-bar w-[3px] bg-themeColor-500 rounded-full"></span>
+            <span class="wave-bar w-[3px] bg-themeColor-500 rounded-full"></span>
+        </div>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="flex-grow">
+
+        <!-- ================= HOME VIEW ================= -->
+        <div id="page-home" class="page-view">
+            <!-- Hero Section -->
+            <section class="relative overflow-hidden pt-12 pb-20 md:pt-16 md:pb-32 bg-gradient-to-b from-stone-50 via-themeColor-50/20 to-stone-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <!-- Hero Left Content -->
+                        <div class="lg:col-span-7 text-left space-y-6">
+                            <!-- Integrated Final Logo Enhanced in Hero Page header -->
+                            <div class="mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                                <img id="hero-brand-logo" src="Final Logo enhanced.png" alt="iChaitanya Brand Logo" class="h-12 sm:h-16 w-auto object-contain" onerror="this.style.display='none';">
+                                <div class="inline-flex items-center space-x-2 bg-themeColor-100/70 border border-themeColor-200/80 rounded-full px-4 py-1.5 text-xs font-semibold text-themeColor-800 tracking-wide">
+                                    <span class="flex h-2 w-2 rounded-full bg-themeColor-500 animate-pulse"></span>
+                                    <span>Live Guided Zoom Batches</span>
+                                </div>
+                            </div>
+                            
+                            <h1 class="serif-title text-4xl sm:text-5xl lg:text-6xl font-semibold text-stone-950 leading-[1.15] tracking-tight">
+                                You’ve already felt a <span class="text-transparent bg-clip-text bg-gradient-to-r from-themeColor-500 to-spiritualGold-500 font-bold italic">calm mind</span>.<br>Now return to it, consciously.
+                            </h1>
+                            
+                            <p class="text-lg text-stone-600 leading-relaxed max-w-xl">
+                                Return to your natural state of calm, and discover meditation as something already within you. Live guided iChaitanya meditation experiences in small Zoom batches.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                                <button onclick="navigateTo('orientation')" class="px-8 py-4 rounded-full bg-gradient-to-r from-themeColor-500 to-spiritualGold-500 hover:from-themeColor-600 hover:to-spiritualGold-600 text-white font-semibold text-base transition-all duration-300 shadow-lg shadow-themeColor-500/25 text-center transform hover:-translate-y-1">
+                                    Join the Live Orientation
+                                </button>
+                                <button onclick="navigateTo('bliss-path')" class="px-8 py-4 rounded-full border-2 border-stone-200 hover:border-themeColor-500 text-stone-700 hover:text-themeColor-600 font-semibold text-base transition duration-200 text-center bg-white/50 backdrop-blur">
+                                    Explore Bliss Path
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hero Right Content: Visual Meditative Breathing Sphere -->
+                        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                            <div class="bg-white/80 border border-stone-200 rounded-3xl shadow-2xl p-8 w-full max-w-sm relative overflow-hidden backdrop-blur-md">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-themeColor-100 text-themeColor-800 text-[10px] font-bold px-2 py-0.5 rounded">TRY NOW</span>
+                                </div>
+                                <h3 class="text-stone-800 font-bold text-center text-md mb-2 font-semibold">Instant Calm Practice</h3>
+                                <p class="text-stone-500 text-xs text-center mb-8">Match your breathing to the glowing pulse below.</p>
+                                
+                                <div class="relative h-44 flex items-center justify-center mb-6">
+                                    <!-- Animated Breathing Circle -->
+                                    <div class="absolute h-24 w-24 rounded-full breathing-bubble"></div>
+                                    <div class="relative z-10 h-16 w-16 rounded-full bg-gradient-to-tr from-themeColor-500 to-spiritualGold-500 flex items-center justify-center shadow-lg">
+                                        <i class="fa-solid fa-spa text-white text-xl animate-spin-slow"></i>
+                                    </div>
+                                </div>
+                                <p id="breath-text" class="text-center text-sm font-semibold tracking-wide text-themeColor-700 min-h-[20px]">Breathe In...</p>
+                                <div class="mt-4 flex justify-center space-x-1.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-stone-300" id="b-dot-1"></span>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-stone-300" id="b-dot-2"></span>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-stone-300" id="b-dot-3"></span>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-stone-300" id="b-dot-4"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft atmospheric shapes -->
+                <div class="absolute top-1/4 left-0 w-72 h-72 bg-themeColor-200/20 rounded-full blur-3xl -z-10"></div>
+                <div class="absolute bottom-10 right-10 w-80 h-80 bg-spiritualGold-100/20 rounded-full blur-3xl -z-10"></div>
+            </section>
+
+            <!-- Trust Strip Section -->
+            <section class="bg-white border-y border-stone-200 py-8 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-center divide-x-0 md:divide-x divide-stone-100">
+                        <div class="flex flex-col items-center justify-center p-2">
+                            <span class="text-themeColor-500 text-lg mb-1"><i class="fa-solid fa-video"></i></span>
+                            <span class="text-sm font-semibold text-stone-800">Live Zoom Sessions</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center p-2">
+                            <span class="text-themeColor-500 text-lg mb-1"><i class="fa-solid fa-heart"></i></span>
+                            <span class="text-sm font-semibold text-stone-800">Beginner Friendly</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center p-2">
+                            <span class="text-themeColor-500 text-lg mb-1"><i class="fa-solid fa-users"></i></span>
+                            <span class="text-sm font-semibold text-stone-800">Small Batches Only</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center p-2">
+                            <span class="text-themeColor-500 text-lg mb-1"><i class="fa-solid fa-globe"></i></span>
+                            <span class="text-sm font-semibold text-stone-800">India & Global Users</span>
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex flex-col items-center justify-center p-2">
+                            <span class="text-themeColor-500 text-lg mb-1"><i class="fa-solid fa-chalkboard-user"></i></span>
+                            <span class="text-sm font-semibold text-stone-800">Saarthi Umesh Misra</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What is iChaitanya Presentation -->
+            <section class="py-20 bg-[#fcfbfa]">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+                    <h2 class="serif-title text-3xl sm:text-4xl font-bold text-stone-900">What is iChaitanya?</h2>
+                    <div class="h-1 w-20 bg-themeColor-500 mx-auto rounded"></div>
+                    <p class="text-lg sm:text-xl text-stone-700 leading-relaxed font-light">
+                        iChaitanya is built on the profound realization that <strong class="font-semibold text-themeColor-800">meditation is not something to achieve, force, or artificially build.</strong>
+                    </p>
+                    <p class="text-base sm:text-lg text-stone-600 leading-relaxed">
+                        Moments of silence, deep stillness, absolute thoughtlessness, and pure presence are already glimpses of meditation you have felt throughout life. Most people simply do not recognize them as such. iChaitanya is a direct guidance journey back to that inner light, consciously.
+                    </p>
+                    <div class="pt-6">
+                        <button onclick="navigateTo('about')" class="inline-flex items-center space-x-2 text-themeColor-500 font-semibold hover:text-themeColor-600 transition duration-150 group">
+                            <span>Read More About Our Saarthi</span>
+                            <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Orientation Teaser Section -->
+            <section class="py-20 bg-gradient-to-tr from-stone-900 to-themeColor-950 text-white rounded-t-[2.5rem] relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <span class="text-themeColor-400 uppercase tracking-widest text-xs font-bold">First Step of the Journey</span>
+                        <h2 class="serif-title text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">A Significant Shift Begins Within You</h2>
+                        <p class="text-stone-300 text-base md:text-lg">In this 40-minute orientation, something deeply familiar begins to return.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
+                        <!-- Points -->
+                        <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur transition hover:bg-white/10">
+                            <span class="text-themeColor-400 font-bold text-xl serif-title block mb-3">01</span>
+                            <h4 class="font-semibold text-lg mb-2">Confidence</h4>
+                            <p class="text-sm text-stone-400 leading-relaxed">A core confidence that you can genuinely meditate.</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur transition hover:bg-white/10">
+                            <span class="text-themeColor-400 font-bold text-xl serif-title block mb-3">02</span>
+                            <h4 class="font-semibold text-lg mb-2">Awareness</h4>
+                            <p class="text-sm text-stone-400 leading-relaxed">Remaining completely 'thought-free' for minutes that pass like seconds.</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur transition hover:bg-white/10">
+                            <span class="text-themeColor-400 font-bold text-xl serif-title block mb-3">03</span>
+                            <h4 class="font-semibold text-lg mb-2">Instant Shift</h4>
+                            <p class="text-sm text-stone-400 leading-relaxed">How to trigger an instantaneous calm state in hectic everyday life.</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur transition hover:bg-white/10">
+                            <span class="text-themeColor-400 font-bold text-xl serif-title block mb-3">04</span>
+                            <h4 class="font-semibold text-lg mb-2">Mind Fitness</h4>
+                            <p class="text-sm text-stone-400 leading-relaxed">How to care for and nurture your conscious mind like a visual muscle.</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur transition hover:bg-white/10">
+                            <span class="text-themeColor-400 font-bold text-xl serif-title block mb-3">05</span>
+                            <h4 class="font-semibold text-lg mb-2">Understanding</h4>
+                            <p class="text-sm text-stone-400 leading-relaxed">A calm mind, not attained by forceful control, but by true understanding.</p>
+                        </div>
+                    </div>
+
+                    <!-- Inner CTA Box -->
+                    <div class="bg-gradient-to-r from-themeColor-600/90 to-themeColor-800/90 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto shadow-2xl border border-white/10">
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 serif-title">Secure Your Seat for Live Orientation</h3>
+                        <p class="text-themeColor-100 max-w-xl mx-auto text-sm sm:text-base mb-8">Take the initial step to rediscover deep inner quietness alongside global seekers.</p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                            <div class="text-center sm:text-right">
+                                <span class="block text-[11px] uppercase tracking-wider text-themeColor-200">Orientation Price</span>
+                                <span class="text-2xl sm:text-3xl font-bold">₹199 <span class="text-sm font-normal text-themeColor-200">India</span> | $25 <span class="text-sm font-normal text-themeColor-200">Global</span></span>
+                            </div>
+                            <button onclick="openCheckout('iChaitanya Live Orientation', 199, 25)" class="w-full sm:w-auto px-8 py-4 bg-white text-themeColor-950 hover:bg-stone-50 font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-150 transform hover:-translate-y-0.5">
+                                Book Live Orientation Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Starry glow elements -->
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=1200')] bg-cover opacity-10 mix-blend-overlay"></div>
+            </section>
+
+            <!-- Programs Catalog Dashboard -->
+            <section class="py-24 bg-stone-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <span class="text-themeColor-600 uppercase tracking-widest text-xs font-bold">Meditation Pathways</span>
+                        <h2 class="serif-title text-3xl sm:text-4xl font-bold text-stone-900">Discover Guided Programs</h2>
+                        <p class="text-stone-600">Select the meditative path structured for your personal journey.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <!-- Bliss Path Program (Highlight Card) -->
+                        <div class="lg:col-span-7 bg-white border border-stone-200 rounded-3xl p-8 shadow-xl flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-2xl">
+                            <div class="absolute top-0 right-0 bg-themeColor-500 text-white text-xs font-bold uppercase tracking-wider px-6 py-2 rounded-bl-3xl">
+                                Recommended
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="h-12 w-12 rounded-2xl bg-themeColor-100 flex items-center justify-center text-themeColor-700">
+                                    <i class="fa-solid fa-peace text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="serif-title text-3xl font-bold text-stone-950 mb-2">Bliss Path Program</h3>
+                                    <p class="text-stone-600 leading-relaxed text-base">
+                                        A comprehensive 6-day guided meditation journey designed to free your mind from daily anxiety, overthinking, and emotional fatigue.
+                                    </p>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                    <div class="flex items-start space-x-3">
+                                        <span class="text-themeColor-500 mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <span class="text-sm font-medium text-stone-700">6 Days Guided Meditation</span>
+                                    </div>
+                                    <div class="flex items-start space-x-3">
+                                        <span class="text-themeColor-500 mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <span class="text-sm font-medium text-stone-700">Flexible Batch Timing</span>
+                                    </div>
+                                    <div class="flex items-start space-x-3">
+                                        <span class="text-themeColor-500 mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <span class="text-sm font-medium text-stone-700">Beginner Friendly Flow</span>
+                                    </div>
+                                    <div class="flex items-start space-x-3">
+                                        <span class="text-themeColor-500 mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <span class="text-sm font-medium text-stone-700">India & International Batches</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-stone-100 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="text-center sm:text-left">
+                                    <span class="text-stone-400 text-xs block uppercase font-bold">Comprehensive Program</span>
+                                    <span class="text-themeColor-500 font-bold text-sm">₹999 India | $99 International</span>
+                                </div>
+                                <button onclick="navigateTo('bliss-path')" class="w-full sm:w-auto px-6 py-3 rounded-full bg-stone-900 hover:bg-themeColor-500 text-white font-semibold text-sm transition duration-200">
+                                    Explore Bliss Path
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Aura Night Meditation Card -->
+                        <div class="lg:col-span-5 bg-gradient-to-b from-stone-900 to-themeColor-950 text-white border border-stone-800 rounded-3xl p-8 shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl">
+                            <div class="space-y-6">
+                                <div class="h-12 w-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-themeColor-400">
+                                    <i class="fa-solid fa-moon text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="serif-title text-2xl font-bold mb-2">Aura – Night Meditation</h3>
+                                    <p class="text-stone-300 text-sm leading-relaxed">
+                                        A gentle 10-minute nightly live Zoom sequence designed to release stress, settle thoughts, and cultivate peaceful rest.
+                                    </p>
+                                </div>
+                                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-2">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-stone-400 font-medium">Daily Schedule:</span>
+                                        <span class="text-themeColor-400 font-bold">9:00 PM – 9:10 PM IST</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-stone-400 font-medium">Session Format:</span>
+                                        <span class="text-white">Live Zoom Broadcast</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-white/10 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <span class="text-themeColor-400 font-bold text-sm">₹75 India | $10 International</span>
+                                <button onclick="navigateTo('aura-night')" class="w-full sm:w-auto px-6 py-3 rounded-full bg-themeColor-500 hover:bg-themeColor-600 text-white font-semibold text-sm transition duration-200">
+                                    Join Aura Night
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Practices Block -->
+                    <div class="mt-12">
+                        <h4 class="text-center font-bold text-lg text-stone-700 uppercase tracking-widest text-xs mb-8">Advanced Practice Explorations</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Open Eye -->
+                            <div class="bg-white border border-stone-200 p-6 rounded-2xl hover:border-themeColor-500/50 transition duration-150">
+                                <div class="text-themeColor-500 text-xl mb-3"><i class="fa-regular fa-eye"></i></div>
+                                <h5 class="font-bold text-stone-800 text-md mb-2">Open Eye Meditation</h5>
+                                <p class="text-xs text-stone-500 leading-relaxed">Cultivating continuous inner stillness and presence while remaining visually conscious of the material world.</p>
+                            </div>
+                            <!-- Walking -->
+                            <div class="bg-white border border-stone-200 p-6 rounded-2xl hover:border-themeColor-500/50 transition duration-150">
+                                <div class="text-themeColor-500 text-xl mb-3"><i class="fa-solid fa-shoe-prints"></i></div>
+                                <h5 class="font-bold text-stone-800 text-md mb-2">Walking Meditation</h5>
+                                <p class="text-xs text-stone-500 leading-relaxed">Consciously shifting silence, peace, and mindfulness directly into movement and your daily activities.</p>
+                            </div>
+                            <!-- Habit De-addiction -->
+                            <div class="bg-white border border-stone-200 p-6 rounded-2xl hover:border-themeColor-500/50 transition duration-150">
+                                <div class="text-themeColor-500 text-xl mb-3"><i class="fa-solid fa-ban"></i></div>
+                                <h5 class="font-bold text-stone-800 text-md mb-2">Habit De-addiction</h5>
+                                <p class="text-xs text-stone-500 leading-relaxed">A specialized meditative framework designed to build mindful space away from compulsive daily patterns.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- One-to-One Quick Section -->
+            <section class="py-20 bg-white">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 bg-themeColor-50/50 border border-themeColor-100 rounded-[2rem] p-8 md:p-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-8 space-y-4">
+                            <span class="text-themeColor-700 text-xs font-bold uppercase tracking-widest">iC One-to-One Private Guided</span>
+                            <h3 class="serif-title text-2xl sm:text-3xl font-bold text-stone-900">A deeply personal meditative space for inner clarity</h3>
+                            <p class="text-stone-600 text-sm sm:text-base">
+                                Experience personalized pathways, flexible scheduling, and direct guidance crafted for your private challenges, anxiety triggers, and mental quietude.
+                            </p>
+                        </div>
+                        <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end w-full">
+                            <button onclick="navigateTo('one-to-one')" class="w-full text-center px-6 py-3 bg-stone-950 hover:bg-stone-800 text-white font-semibold text-sm rounded-full transition">
+                                <i class="fa-solid fa-calendar-days mr-2"></i> Book Private Call
+                            </button>
+                            <a href="https://wa.me/919999999999?text=Hello,%20I%20am%20interested%20in%20iChaitanya%20One-to-One%20sessions." target="_blank" class="w-full text-center px-6 py-3 border border-themeColor-500 hover:bg-themeColor-50 text-themeColor-800 font-semibold text-sm rounded-full transition flex items-center justify-center">
+                                <i class="fa-brands fa-whatsapp mr-2 text-themeColor-500 text-lg"></i> Send WhatsApp Request
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Snippet -->
+            <section class="py-20 bg-[#fcfbfa]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                        <div>
+                            <span class="text-amber-600 text-xs uppercase font-bold tracking-widest block mb-2">Shared Experiences</span>
+                            <h3 class="serif-title text-3xl font-bold text-stone-950">What People Are Saying</h3>
+                        </div>
+                        <button onclick="navigateTo('testimonials')" class="mt-4 md:mt-0 text-themeColor-600 hover:text-themeColor-700 font-semibold text-sm flex items-center space-x-1">
+                            <span>Browse All Stories & Zoom Screenshots</span>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white border border-stone-100 p-8 rounded-2xl shadow-sm space-y-4">
+                            <div class="flex text-amber-500 space-x-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="text-stone-600 text-sm leading-relaxed italic">
+                                "I was highly skeptical since I couldn't sit for even two minutes. But in Umesh's first session, those 40 minutes felt like just a few seconds. Absolute breakthrough."
+                            </p>
+                            <div class="pt-2 border-t border-stone-50">
+                                <p class="font-bold text-stone-800 text-sm">Deepak Sharma</p>
+                                <p class="text-[10px] text-stone-400">Software Architect, India</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-stone-100 p-8 rounded-2xl shadow-sm space-y-4">
+                            <div class="flex text-amber-500 space-x-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="text-stone-600 text-sm leading-relaxed italic">
+                                "The Bliss Path changed how I handle work stress. Umesh teaches with so much clarity; you realize calm isn't a goal you search for—it's already right here inside."
+                            </p>
+                            <div class="pt-2 border-t border-stone-50">
+                                <p class="font-bold text-stone-800 text-sm">Sarah Miller</p>
+                                <p class="text-[10px] text-stone-400">Creative Director, London</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-stone-100 p-8 rounded-2xl shadow-sm space-y-4">
+                            <div class="flex text-amber-500 space-x-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="text-stone-600 text-sm leading-relaxed italic">
+                                "Aura Night is my daily reset button. It is only 10 minutes but it has entirely cured my bedtime overthinking cycle. I sleep deeply."
+                            </p>
+                            <div class="pt-2 border-t border-stone-50">
+                                <p class="font-bold text-stone-800 text-sm">Priyanka Sen</p>
+                                <p class="text-[10px] text-stone-400">Academician, New Delhi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Accordion Section -->
+            <section class="py-20 bg-stone-50 border-t border-stone-200">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="serif-title text-3xl font-bold text-center text-stone-900 mb-12">Frequently Asked Questions</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden transition duration-150">
+                            <button onclick="toggleFaq(1)" class="w-full text-left px-6 py-4 font-semibold text-stone-800 flex justify-between items-center hover:bg-stone-50/50">
+                                <span>Is this beginner friendly?</span>
+                                <i id="faq-icon-1" class="fa-solid fa-plus text-stone-400 text-sm transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-ans-1" class="hidden px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                                Yes, entirely. The majority of our meditators have zero prior background. Our visual step-by-step guidance is built exactly to keep it comfortable for absolute beginners.
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden transition duration-150">
+                            <button onclick="toggleFaq(2)" class="w-full text-left px-6 py-4 font-semibold text-stone-800 flex justify-between items-center hover:bg-stone-50/50">
+                                <span>Are the sessions live?</span>
+                                <i id="faq-icon-2" class="fa-solid fa-plus text-stone-400 text-sm transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-ans-2" class="hidden px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                                Yes. Every single experience session is conducted 100% live by Umesh Misra on Zoom. This allows direct personal adjustments, energy synchronization, and real-time guidance.
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden transition duration-150">
+                            <button onclick="toggleFaq(3)" class="w-full text-left px-6 py-4 font-semibold text-stone-800 flex justify-between items-center hover:bg-stone-50/50">
+                                <span>Do I need prior meditation experience?</span>
+                                <i id="faq-icon-3" class="fa-solid fa-plus text-stone-400 text-sm transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-ans-3" class="hidden px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                                No prior experience of any kind is required. All you need is a peaceful space to sit comfortably and a willingness to simply experience things as they unfold.
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden transition duration-150">
+                            <button onclick="toggleFaq(4)" class="w-full text-left px-6 py-4 font-semibold text-stone-800 flex justify-between items-center hover:bg-stone-50/50">
+                                <span>Can international participants join?</span>
+                                <i id="faq-icon-4" class="fa-solid fa-plus text-stone-400 text-sm transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-ans-4" class="hidden px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                                Absolutely! We have meditators from across Europe, North America, Southeast Asia, and the Middle East. We provide multiple flexible batch timings to cover different time zones seamlessly.
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden transition duration-150">
+                            <button onclick="toggleFaq(5)" class="w-full text-left px-6 py-4 font-semibold text-stone-800 flex justify-between items-center hover:bg-stone-50/50">
+                                <span>How do I receive Zoom details?</span>
+                                <i id="faq-icon-5" class="fa-solid fa-plus text-stone-400 text-sm transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-ans-5" class="hidden px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                                Immediately upon registering via this portal, you will receive confirmation details, and unique custom joining links will be sent directly to your registered Email and WhatsApp before the session begins.
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden transition duration-150">
+                            <button onclick="toggleFaq(6)" class="w-full text-left px-6 py-4 font-semibold text-stone-800 flex justify-between items-center hover:bg-stone-50/50">
+                                <span>Which payment methods are available?</span>
+                                <i id="faq-icon-6" class="fa-solid fa-plus text-stone-400 text-sm transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-ans-6" class="hidden px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                                We utilize UPI, Credit/Debit Cards, and Net Banking via secure Razorpay checkout for participants in India. International participants can easily use standard debit/credit cards or PayPal in USD.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= ORIENTATION VIEW ================= -->
+        <div id="page-orientation" class="page-view hidden">
+            <section class="py-20 bg-gradient-to-b from-[#fcfbfa] to-themeColor-50/30">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <span class="text-themeColor-700 text-xs font-bold uppercase tracking-widest bg-themeColor-100 px-3 py-1 rounded-full">Orientation Deep Dive</span>
+                        <h1 class="serif-title text-4xl sm:text-5xl font-bold text-stone-900 leading-tight">Start Your Meditative Awareness</h1>
+                        <p class="text-stone-600 text-base">A guided 40-minute iChaitanya Dhyan Orientation with Saarthi Umesh Misra.</p>
+                    </div>
+
+                    <!-- Layout Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                        <!-- Left Details Column -->
+                        <div class="lg:col-span-7 space-y-8">
+                            <div class="bg-white p-8 rounded-3xl border border-stone-200/80 shadow-md">
+                                <h3 class="serif-title text-2xl font-bold text-stone-900 mb-6">What is the Shift?</h3>
+                                <div class="space-y-6">
+                                    <div class="flex items-start space-x-4">
+                                        <span class="h-8 w-8 rounded-full bg-themeColor-100 text-themeColor-800 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">01</span>
+                                        <div>
+                                            <h4 class="font-bold text-stone-800 text-md">Confidence to Meditate</h4>
+                                            <p class="text-xs text-stone-500 mt-1">Free yourself from the worry of whether you are "doing it right" or forcing mental control.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-4">
+                                        <span class="h-8 w-8 rounded-full bg-themeColor-100 text-themeColor-800 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">02</span>
+                                        <div>
+                                            <h4 class="font-bold text-stone-800 text-md">Minutes Passing like Seconds</h4>
+                                            <p class="text-xs text-stone-500 mt-1">Experience absolute thoughtless silence where time morphs naturally without any restlessness.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-4">
+                                        <span class="h-8 w-8 rounded-full bg-themeColor-100 text-themeColor-800 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">03</span>
+                                        <div>
+                                            <h4 class="font-bold text-stone-800 text-md">Instant Shift Mechanism</h4>
+                                            <p class="text-xs text-stone-500 mt-1">Take away concrete practical methods to trigger focus and calm amidst daily workplace chaos.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-4">
+                                        <span class="h-8 w-8 rounded-full bg-themeColor-100 text-themeColor-800 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">04</span>
+                                        <div>
+                                            <h4 class="font-bold text-stone-800 text-md">Nurture Mind Like a Muscle</h4>
+                                            <p class="text-xs text-stone-500 mt-1">Develop cognitive techniques to stretch, relax, and build your mental landscape.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-4">
+                                        <span class="h-8 w-8 rounded-full bg-themeColor-100 text-themeColor-800 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">05</span>
+                                        <div>
+                                            <h4 class="font-bold text-stone-800 text-md">Calm by Understanding</h4>
+                                            <p class="text-xs text-stone-500 mt-1">Instead of forcefully fighting bad thoughts, enter silent states through scientific spiritual clarity.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- What is Needed -->
+                            <div class="bg-stone-900 text-white p-8 rounded-3xl relative overflow-hidden">
+                                <h3 class="serif-title text-xl font-bold mb-4">Prerequisites For Your Session</h3>
+                                <p class="text-xs text-stone-400 mb-6">Kindly prepare these conditions in advance of your joining link activating:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl">
+                                        <i class="fa-regular fa-lightbulb text-themeColor-400 text-lg mb-2 block"></i>
+                                        <p class="font-semibold text-xs text-stone-200">Well Lit Space</p>
+                                        <p class="text-[10px] text-stone-400 mt-1">Sit in a clean, very well lit room with good lighting.</p>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl">
+                                        <i class="fa-solid fa-person-walking-arrow-right text-themeColor-400 text-lg mb-2 block"></i>
+                                        <p class="font-semibold text-xs text-stone-200">Show Up Whole</p>
+                                        <p class="text-[10px] text-stone-400 mt-1">Willingness to show up exactly as you are today.</p>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl">
+                                        <i class="fa-solid fa-hands-praying text-themeColor-400 text-lg mb-2 block"></i>
+                                        <p class="font-semibold text-xs text-stone-200">Openness</p>
+                                        <p class="text-[10px] text-stone-400 mt-1">Maintain complete openness to whatever feelings arise.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Form / Callout Column -->
+                        <div class="lg:col-span-5">
+                            <div class="bg-white border border-stone-200 rounded-3xl p-8 shadow-xl sticky top-24">
+                                <h4 class="font-bold text-lg text-stone-950 mb-1">Live Online Orientation</h4>
+                                <span class="text-themeColor-500 text-xs font-semibold block mb-4">Conducted globally on Zoom</span>
+                                <hr class="border-stone-100 mb-6">
+                                
+                                <div class="space-y-4 mb-6">
+                                    <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                                        <span class="text-xs text-stone-500 font-medium">Session Duration</span>
+                                        <span class="text-xs font-bold text-stone-800">40 Minutes Live</span>
+                                    </div>
+                                    <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                                        <span class="text-xs text-stone-500 font-medium">Batch Format</span>
+                                        <span class="text-xs font-bold text-stone-800">Small Interactive Group</span>
+                                    </div>
+                                    <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                                        <span class="text-xs text-stone-500 font-medium">Guide</span>
+                                        <span class="text-xs font-bold text-themeColor-500">Umesh Misra</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-themeColor-50 rounded-2xl p-4 text-center mb-6 border border-themeColor-100">
+                                    <span class="text-[10px] uppercase font-bold text-themeColor-800 tracking-wider">Orientation Ticket Price</span>
+                                    <p class="text-2xl font-bold text-stone-900 mt-1">₹199 <span class="text-xs font-medium text-stone-500">India</span> | $25 <span class="text-xs font-medium text-stone-500">Global</span></p>
+                                </div>
+
+                                <button onclick="openCheckout('iChaitanya Live Orientation', 199, 25)" class="w-full py-4 rounded-full bg-gradient-to-r from-themeColor-500 to-spiritualGold-500 text-white font-bold transition hover:opacity-95 shadow-lg text-center">
+                                    Secure My Seat
+                                </button>
+                                <p class="text-center text-[10px] text-stone-400 mt-3">Secure Checkout processed via encrypted gateway</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= BLISS PATH VIEW ================= -->
+        <div id="page-bliss-path" class="page-view hidden">
+            <!-- Hero Header -->
+            <section class="py-20 bg-stone-50 border-b border-stone-200">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto space-y-4">
+                        <span class="text-themeColor-500 text-xs font-bold uppercase tracking-widest">6-Day Guided Journey</span>
+                        <h1 class="serif-title text-4xl sm:text-5xl font-bold text-stone-950">The Bliss Path Program</h1>
+                        <p class="text-stone-600 text-base">A carefully designed guided meditation journey for inner calm, emotional balance, positivity, and conscious living.</p>
+                    </div>
+
+                    <!-- Interactive Thought Dissolver game block inside Bliss Path -->
+                    <div class="mt-16 bg-white border border-stone-200 rounded-[2.5rem] shadow-xl p-8 max-w-3xl mx-auto text-center overflow-hidden">
+                        <span class="bg-themeColor-100 text-themeColor-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Experience Bliss Path Core Objective</span>
+                        <h3 class="serif-title text-2xl font-bold text-stone-900 mt-4 mb-2">The Mind-Clutter Dissolver</h3>
+                        <p class="text-stone-500 text-xs max-w-md mx-auto mb-6">Our goal is freedom from constant overthinking and negative weights. Click the cluttered stress thoughts floating inside the mind below to dissolve them into quietness.</p>
+                        
+                        <!-- Interactive Area -->
+                        <div class="relative bg-stone-900/95 h-64 rounded-2xl overflow-hidden shadow-inner border border-stone-800 flex flex-col justify-center items-center">
+                            <div class="absolute inset-0 bg-radial-gradient from-themeColor-950/20 to-stone-950 pointer-events-none"></div>
+                            
+                            <!-- Inside Floating Elements container -->
+                            <div id="mind-container" class="absolute inset-0">
+                                <!-- Elements dynamically injected by JS -->
+                            </div>
+                            
+                            <!-- Static Instruction Layer when finished -->
+                            <div id="mind-victory-msg" class="hidden relative z-10 space-y-2 max-w-xs animate-fade-in">
+                                <div class="h-12 w-12 rounded-full bg-themeColor-500/20 border border-themeColor-500 flex items-center justify-center text-themeColor-400 mx-auto animate-bounce">
+                                    <i class="fa-solid fa-circle-check text-xl"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-md">Mind is Clear & Quiet</h4>
+                                <p class="text-[11px] text-stone-300">This state of conscious clarity is the natural stillness we return to on the Bliss Path.</p>
+                                <button onclick="resetClutterGame()" class="px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-full text-[10px] font-medium transition">Reset Simulation</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practices detailed -->
+            <section class="py-20 bg-white">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="serif-title text-3xl font-bold text-center text-stone-950 mb-16">The Core Meditative Practices</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-[#fcfbfa] border border-stone-150 p-8 rounded-3xl relative">
+                            <div class="h-10 w-10 rounded-xl bg-orange-100 text-themeColor-500 flex items-center justify-center font-bold text-md mb-6"><i class="fa-solid fa-circle-radiation"></i></div>
+                            <h4 class="font-bold text-stone-800 text-lg mb-2">Anand Dhyan</h4>
+                            <span class="text-[10px] text-themeColor-500 uppercase tracking-wider font-semibold">Bliss Meditation</span>
+                            <p class="text-xs text-stone-500 leading-relaxed mt-4">Restores standard focus and triggers spontaneous positive emotional resonance inside the heart cavity.</p>
+                        </div>
+                        <div class="bg-[#fcfbfa] border border-stone-150 p-8 rounded-3xl relative">
+                            <div class="h-10 w-10 rounded-xl bg-themeColor-100 text-themeColor-500 flex items-center justify-center font-bold text-md mb-6"><i class="fa-solid fa-fire"></i></div>
+                            <h4 class="font-bold text-stone-800 text-lg mb-2">Agni Dhyan</h4>
+                            <span class="text-[10px] text-themeColor-500 uppercase tracking-wider font-semibold">Release Meditation</span>
+                            <p class="text-xs text-stone-500 leading-relaxed mt-4">A powerful technique tailored to release lingering negative past anchors and subconscious emotional weight.</p>
+                        </div>
+                        <div class="bg-[#fcfbfa] border border-stone-150 p-8 rounded-3xl relative">
+                            <div class="h-10 w-10 rounded-xl bg-amber-100 text-spiritualGold-600 flex items-center justify-center font-bold text-md mb-6"><i class="fa-solid fa-compass"></i></div>
+                            <h4 class="font-bold text-stone-800 text-lg mb-2">Aekam Dhyan</h4>
+                            <span class="text-[10px] text-spiritualGold-600 uppercase tracking-wider font-semibold">Intention Meditation</span>
+                            <p class="text-xs text-stone-500 leading-relaxed mt-4">Aligns conscious desires and creates focus, single-minded vision, and peaceful strength.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Format details -->
+            <section class="py-20 bg-stone-50 border-y border-stone-200">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div class="lg:col-span-6 space-y-6">
+                            <span class="text-themeColor-500 text-xs font-bold uppercase tracking-widest">Target Focus Elements</span>
+                            <h3 class="serif-title text-3xl font-bold text-stone-900">Designed for anyone seeking immediate freedom from:</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="flex items-center space-x-3 bg-white p-4 rounded-xl border border-stone-150">
+                                    <span class="text-red-500 text-sm"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                    <span class="text-stone-700 text-xs font-semibold">Constant Overthinking</span>
+                                </div>
+                                <div class="flex items-center space-x-3 bg-white p-4 rounded-xl border border-stone-150">
+                                    <span class="text-red-500 text-sm"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                    <span class="text-stone-700 text-xs font-semibold">Chronic Anxiety</span>
+                                </div>
+                                <div class="flex items-center space-x-3 bg-white p-4 rounded-xl border border-stone-150">
+                                    <span class="text-red-500 text-sm"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                    <span class="text-stone-700 text-xs font-semibold">Negative Thoughts</span>
+                                </div>
+                                <div class="flex items-center space-x-3 bg-white p-4 rounded-xl border border-stone-150">
+                                    <span class="text-red-500 text-sm"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                    <span class="text-stone-700 text-xs font-semibold">Mental Restlessness</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-6 bg-white border border-stone-200 rounded-3xl p-8 shadow-md space-y-6">
+                            <h4 class="font-bold text-stone-950 text-md">Batch Availability & Price Structure</h4>
+                            <hr class="border-stone-100">
+                            
+                            <div class="space-y-4">
+                                <div class="p-4 bg-[#fcfbfa] border border-stone-150 rounded-xl">
+                                    <p class="font-bold text-xs text-stone-800">Regular Bliss Path Batches (India)</p>
+                                    <p class="text-xs text-stone-500 mt-1">Conducted daily at various times to accommodate standard workday schedules.</p>
+                                </div>
+                                <div class="p-4 bg-[#fcfbfa] border border-stone-150 rounded-xl">
+                                    <p class="font-bold text-xs text-stone-800">Small Batch of 3 (International)</p>
+                                    <p class="text-xs text-stone-500 mt-1">Designed specifically for highly individualized coaching and guidance.</p>
+                                </div>
+                            </div>
+
+                            <button onclick="openCheckout('iChaitanya Bliss Path Program', 999, 99)" class="w-full text-center py-4 rounded-full bg-themeColor-500 hover:bg-themeColor-600 text-white font-bold transition shadow-lg text-sm">
+                                Register for Bliss Path Program (₹999 / $99)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= AURA NIGHT VIEW ================= -->
+        <div id="page-aura-night" class="page-view hidden">
+            <section class="py-20 bg-gradient-to-b from-stone-950 via-[#19110B] to-stone-950 text-white min-h-[80vh] relative overflow-hidden flex flex-col justify-center">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
+                    <span class="text-themeColor-400 text-xs uppercase tracking-widest font-bold block bg-white/5 border border-white/10 px-4 py-1.5 rounded-full w-fit mx-auto">40 Nights of Positivity</span>
+                    
+                    <h1 class="serif-title text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">Aura – Night Meditation</h1>
+                    <div class="h-[1px] w-24 bg-themeColor-500/50 mx-auto"></div>
+                    
+                    <p class="text-stone-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                        The mind absorbs a lot through the day. Aura – Night Meditation is a gentle 10-minute meditation experience designed to help you release the day, quiet the mind, and reconnect with peace, positivity, and renewed energy before tomorrow begins.
+                    </p>
+
+                    <!-- Timing Grid & Interactive Sleep Sound Segment -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto text-center pt-4">
+                        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur">
+                            <p class="text-[10px] text-themeColor-300 uppercase font-bold tracking-widest">Journey Format</p>
+                            <p class="font-bold text-md mt-1">25 or 29 Days</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur">
+                            <p class="text-[10px] text-themeColor-300 uppercase font-bold tracking-widest">Time (Daily)</p>
+                            <p class="font-bold text-md mt-1 text-themeColor-400">9:00 PM – 9:10 PM</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur">
+                            <p class="text-[10px] text-themeColor-300 uppercase font-bold tracking-widest">Format</p>
+                            <p class="font-bold text-md mt-1">Live on Zoom</p>
+                        </div>
+                    </div>
+
+                    <!-- Ambient rain simulator toggle -->
+                    <div class="pt-4">
+                        <button onclick="toggleAmbientNightSound()" id="night-sound-btn" class="px-6 py-2.5 rounded-full bg-themeColor-900/40 hover:bg-themeColor-900/60 border border-themeColor-500/20 text-themeColor-200 text-xs font-semibold transition flex items-center space-x-2 mx-auto">
+                            <i id="night-audio-icon" class="fa-solid fa-moon text-themeColor-400"></i>
+                            <span id="night-audio-label">Enable Ambient Night Rain</span>
+                        </button>
+                    </div>
+
+                    <!-- Checkout Callout -->
+                    <div class="pt-8 max-w-md mx-auto">
+                        <button onclick="openCheckout('iChaitanya Aura Night Meditation', 75, 10)" class="w-full py-4 rounded-full bg-themeColor-500 hover:bg-themeColor-600 text-stone-950 font-bold transition shadow-lg text-sm tracking-wider">
+                            Join Aura Night (₹75 India | $10 International)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom starry canvas drawing background -->
+                <canvas id="starfield" class="absolute inset-0 w-full h-full -z-0 opacity-40"></canvas>
+            </section>
+        </div>
+
+
+        <!-- ================= ONE-TO-ONE VIEW ================= -->
+        <div id="page-one-to-one" class="page-view hidden">
+            <section class="py-20 bg-gradient-to-b from-[#fcfbfa] to-stone-100">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <span class="text-themeColor-600 text-xs font-bold uppercase tracking-widest bg-themeColor-100 px-3 py-1 rounded-full">Private Guidance Space</span>
+                        <h1 class="serif-title text-4xl sm:text-5xl font-bold text-stone-900">iC One-to-One Meditation</h1>
+                        <p class="text-stone-600 text-base">A deeply personal meditative experience for inner clarity, emotional balance, and stillness.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                        <!-- Details -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="bg-white border border-stone-200 rounded-3xl p-8 space-y-6 shadow-sm">
+                                <h3 class="serif-title text-2xl font-bold text-stone-900">Tailored Specifically For:</h3>
+                                <hr class="border-stone-100">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="p-4 border border-stone-100 rounded-xl flex items-start space-x-3">
+                                        <span class="text-themeColor-500 text-sm mt-0.5"><i class="fa-solid fa-check"></i></span>
+                                        <div>
+                                            <p class="font-bold text-xs text-stone-800">Deeper Attention</p>
+                                            <p class="text-[10px] text-stone-500 mt-1">Highly focused sessions mapping your specific mind patterns.</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 border border-stone-100 rounded-xl flex items-start space-x-3">
+                                        <span class="text-themeColor-500 text-sm mt-0.5"><i class="fa-solid fa-check"></i></span>
+                                        <div>
+                                            <p class="font-bold text-xs text-stone-800">Emotional Clarity</p>
+                                            <p class="text-[10px] text-stone-500 mt-1">Guided release of grief, heavy negative baggage, or continuous anxiety loops.</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 border border-stone-100 rounded-xl flex items-start space-x-3">
+                                        <span class="text-themeColor-500 text-sm mt-0.5"><i class="fa-solid fa-check"></i></span>
+                                        <div>
+                                            <p class="font-bold text-xs text-stone-800">Direct Calmness</p>
+                                            <p class="text-[10px] text-stone-500 mt-1">Methods customized specifically for your individual daily lifestyle constraints.</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 border border-stone-100 rounded-xl flex items-start space-x-3">
+                                        <span class="text-themeColor-500 text-sm mt-0.5"><i class="fa-solid fa-check"></i></span>
+                                        <div>
+                                            <p class="font-bold text-xs text-stone-800">Personal Guidance</p>
+                                            <p class="text-[10px] text-stone-500 mt-1">Continuous direct contact channel with Umesh Misra for queries.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-stone-900 text-white p-8 rounded-3xl space-y-4">
+                                <h4 class="font-bold text-md">One-to-One Program Format</h4>
+                                <div class="grid grid-cols-2 gap-4 text-xs">
+                                    <div class="p-3 bg-white/5 border border-white/10 rounded-xl"><p class="text-stone-400">Sessions</p><p class="font-bold text-white mt-1">Private Guided Sessions</p></div>
+                                    <div class="p-3 bg-white/5 border border-white/10 rounded-xl"><p class="text-stone-400">Media</p><p class="font-bold text-white mt-1">Live on Zoom</p></div>
+                                    <div class="p-3 bg-white/5 border border-white/10 rounded-xl"><p class="text-stone-400">Timings</p><p class="font-bold text-white mt-1">Flexible Scheduling</p></div>
+                                    <div class="p-3 bg-white/5 border border-white/10 rounded-xl"><p class="text-stone-400">Focus</p><p class="font-bold text-white mt-1">Personalised Experience</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Booking Form Simulator -->
+                        <div class="lg:col-span-5">
+                            <div class="bg-white border border-stone-200 rounded-3xl p-8 shadow-xl">
+                                <h3 class="serif-title text-xl font-bold text-stone-900 mb-2">Request Consultation</h3>
+                                <p class="text-stone-500 text-xs mb-6">Enter your details and our team will coordinate the batch with you.</p>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Your Full Name</label>
+                                        <input type="text" id="consult-name" placeholder="eg. Aman Sen" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-700 uppercase mb-1">WhatsApp / Contact Number</label>
+                                        <input type="tel" id="consult-phone" placeholder="eg. +91 99999 99999" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Main Challenge You Face</label>
+                                        <select id="consult-challenge" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                                            <option value="Overthinking">Constant Overthinking</option>
+                                            <option value="Anxiety">Anxiety & Nervous Stress</option>
+                                            <option value="Sleep">Sleep Issues / Bedtime Mind Racing</option>
+                                            <option value="General">Looking for Spiritual Guidance</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button onclick="submitConsultationRequest()" class="w-full py-4 rounded-full bg-themeColor-600 hover:bg-themeColor-700 text-white font-bold transition text-xs shadow-md">
+                                        Send Request on WhatsApp
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= TESTIMONIALS VIEW ================= -->
+        <div id="page-testimonials" class="page-view hidden">
+            <section class="py-20 bg-[#fcfbfa]">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <span class="text-themeColor-700 text-xs font-bold uppercase tracking-widest bg-themeColor-100 px-3 py-1 rounded-full">Meditation Outcomes</span>
+                        <h1 class="serif-title text-4xl sm:text-5xl font-bold text-stone-900">Real Stories of Quiet Minds</h1>
+                        <p class="text-stone-600 text-base">Explore transformations felt by individuals across global zoom batches.</p>
+                    </div>
+
+                    <!-- Category Filter Tabs -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-12">
+                        <button onclick="filterTestimonials('all')" class="testimonial-tab-btn px-5 py-2 rounded-full border border-themeColor-600 bg-themeColor-600 text-white text-xs font-semibold transition">Show All</button>
+                        <button onclick="filterTestimonials('whatsapp')" class="testimonial-tab-btn px-5 py-2 rounded-full border border-stone-200 bg-white hover:border-themeColor-500 text-stone-700 text-xs font-semibold transition">WhatsApp Stories</button>
+                        <button onclick="filterTestimonials('zoom')" class="testimonial-tab-btn px-5 py-2 rounded-full border border-stone-200 bg-white hover:border-themeColor-500 text-stone-700 text-xs font-semibold transition">Zoom Feedback</button>
+                        <button onclick="filterTestimonials('global')" class="testimonial-tab-btn px-5 py-2 rounded-full border border-stone-200 bg-white hover:border-themeColor-500 text-stone-700 text-xs font-semibold transition">Global Journeys</button>
+                    </div>
+
+                    <!-- Testimonials Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimonials-grid">
+                        
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-card bg-white border border-stone-200 rounded-3xl p-8 shadow-sm space-y-6" data-cat="whatsapp">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-themeColor-50 text-themeColor-700 text-[10px] font-bold px-2.5 py-1 rounded-full">WhatsApp Feedback</span>
+                                <div class="text-amber-500 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <!-- Simulated WhatsApp screen look -->
+                            <div class="bg-orange-50/75 border border-themeColor-100 rounded-2xl p-4 text-xs font-medium text-stone-800 space-y-2 relative">
+                                <p class="text-[9px] text-themeColor-600 uppercase font-bold">10:14 PM - Batch Participant</p>
+                                <p class="leading-relaxed">"Umesh ji, I want to say thanks. In tonight's Agni Dhyan practice, I felt a heavy emotional knot in my chest completely release. I actually cried and now feel so empty and light."</p>
+                            </div>
+                            <div class="flex items-center space-x-3 pt-2">
+                                <div class="h-10 w-10 rounded-full bg-stone-100 flex items-center justify-center font-bold text-stone-600 text-sm">KS</div>
+                                <div>
+                                    <p class="font-bold text-stone-800 text-xs">Karan Sharma</p>
+                                    <p class="text-[10px] text-stone-400">Marketing Head, Pune</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-card bg-white border border-stone-200 rounded-3xl p-8 shadow-sm space-y-6" data-cat="zoom">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-amber-50 text-spiritualGold-600 text-[10px] font-bold px-2.5 py-1 rounded-full">Zoom Chat Snippet</span>
+                                <div class="text-amber-500 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <div class="bg-amber-50/75 border border-amber-100 rounded-2xl p-4 text-xs font-medium text-stone-800 space-y-2 relative">
+                                <p class="text-[9px] text-spiritualGold-600 uppercase font-bold">Direct Zoom Broadcast Feedback</p>
+                                <p class="italic leading-relaxed">"This is my first time trying live open-eye meditation. Staring at the focal point while listening to Umesh’s guidance somehow shut off my inner narrative entirely. Absolutely miraculous!"</p>
+                            </div>
+                            <div class="flex items-center space-x-3 pt-2">
+                                <div class="h-10 w-10 rounded-full bg-stone-100 flex items-center justify-center font-bold text-stone-600 text-sm">RV</div>
+                                <div>
+                                    <p class="font-bold text-stone-800 text-xs">Rohan Verma</p>
+                                    <p class="text-[10px] text-stone-400">UI Designer, Bangalore</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-card bg-white border border-stone-200 rounded-3xl p-8 shadow-sm space-y-6" data-cat="global">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-themeColor-50 text-themeColor-700 text-[10px] font-bold px-2.5 py-1 rounded-full">International Journey</span>
+                                <div class="text-amber-500 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <p class="text-stone-600 text-xs leading-relaxed italic">
+                                "As someone living in Germany, finding batch timings was initially a worry. But the international batch of 3 setup works seamlessly. Umesh explains Indian Dhyan practices in clear, rationalized context without complex dogma."
+                            </p>
+                            <div class="flex items-center space-x-3 pt-2">
+                                <div class="h-10 w-10 rounded-full bg-stone-100 flex items-center justify-center font-bold text-stone-600 text-sm">AM</div>
+                                <div>
+                                    <p class="font-bold text-stone-800 text-xs">Andreas Muller</p>
+                                    <p class="text-[10px] text-stone-400">Munich, Germany</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= ABOUT VIEW ================= -->
+        <div id="page-about" class="page-view hidden">
+            <section class="py-20 bg-gradient-to-b from-stone-50 via-themeColor-50/20 to-stone-50">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    
+                    <div class="text-center space-y-4">
+                        <span class="text-themeColor-700 text-xs font-bold uppercase tracking-widest bg-themeColor-100 px-3 py-1 rounded-full">The Philosophy & Saarthi</span>
+                        <h1 class="serif-title text-4xl sm:text-5xl font-bold text-stone-900">Meditation is Already Within You</h1>
+                        <p class="text-stone-500 text-base italic">The journey of Umesh Misra & iChaitanya.</p>
+                    </div>
+
+                    <!-- Philosophy Statement Block -->
+                    <div class="bg-white border border-stone-200 rounded-3xl p-8 md:p-12 shadow-sm space-y-6 text-stone-700 leading-relaxed text-sm md:text-base">
+                        <div class="flex justify-center mb-6">
+                            <img src="Final Logo enhanced.png" alt="Enhanced Logo Statement" class="h-16 w-auto object-contain" onerror="this.style.display='none';">
+                        </div>
+                        <p>
+                            iChaitanya is built on the realization that <strong class="text-stone-900 font-semibold">meditation is not something to achieve, force, or artificially create.</strong>
+                        </p>
+                        <p>
+                            Moments of silence, stillness, thoughtlessness, peace, deep love, awareness, and complete presence are already glimpses of meditation.
+                        </p>
+                        <p class="bg-themeColor-50 border-l-4 border-themeColor-500 p-4 rounded-r-xl italic text-themeColor-900">
+                            "Most people simply do not recognize these quiet spaces as meditation itself. They are waiting for some complex lightning event. But meditation is much simpler—it is your natural resting state."
+                        </p>
+                        <p>
+                            iChaitanya is a Dhyaan (Meditation) journey that helps people consciously return to that calmness, silence the mind, go beyond it, and discover the peace, strength, awareness, and creation already within.
+                        </p>
+                    </div>
+
+                    <!-- Umesh Misra Introduction -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-stone-900 text-white rounded-3xl p-8 md:p-12 relative overflow-hidden">
+                        <div class="md:col-span-8 space-y-4">
+                            <span class="text-themeColor-400 text-xs font-bold uppercase tracking-widest">About Umesh Misra (Saarthi)</span>
+                            <h3 class="serif-title text-2xl md:text-3xl font-bold">"The role of a Saarthi is not to preach"</h3>
+                            <p class="text-stone-400 text-xs md:text-sm leading-relaxed">
+                                iChaitanya was born from years of direct, silent meditative experience. Umesh Misra guides meditation not with rigid dogmas or dry textbook preaching, but by matching your immediate emotional states.
+                            </p>
+                            <p class="text-stone-400 text-xs md:text-sm leading-relaxed">
+                                A Saarthi (charioteer) does not dictate your destiny—he simply guides your carriage safely back toward the stillness you have already experienced inside.
+                            </p>
+                        </div>
+                        <div class="md:col-span-4 flex justify-center">
+                            <div class="h-32 w-32 md:h-40 md:w-40 rounded-full border-4 border-themeColor-500/30 overflow-hidden shadow-2xl relative bg-stone-800 flex items-center justify-center">
+                                <i class="fa-solid fa-person-praying text-themeColor-400 text-5xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= ADMIN PORTAL VIEW ================= -->
+        <div id="page-admin" class="page-view hidden">
+            <!-- 1. Admin Login View (Hidden when logged in) -->
+            <div id="admin-login-screen" class="min-h-[70vh] flex items-center justify-center px-4 bg-stone-50 py-12">
+                <div class="bg-white border border-stone-200 rounded-[2rem] p-8 shadow-xl max-w-md w-full space-y-6">
+                    <div class="text-center space-y-2">
+                        <div class="h-12 w-12 rounded-2xl bg-themeColor-500 text-white flex items-center justify-center mx-auto text-xl">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h2 class="serif-title text-2xl font-bold text-stone-900">Saarthi Admin Gate</h2>
+                        <p class="text-stone-500 text-xs">Enter credentials to schedule slots and view Zoom logs.</p>
+                    </div>
+
+                    <div class="bg-themeColor-50 border border-themeColor-100 rounded-xl p-3 text-center text-xs text-themeColor-800">
+                        <span class="font-bold">Demo Login Credentials:</span> <br>
+                        Username: <code class="font-mono bg-white px-1.5 py-0.5 rounded shadow-sm">admin</code> &nbsp;&bull;&nbsp; Password: <code class="font-mono bg-white px-1.5 py-0.5 rounded shadow-sm">admin</code>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Username</label>
+                            <input type="text" id="admin-username-input" placeholder="admin" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Password</label>
+                            <input type="password" id="admin-password-input" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs font-mono">
+                        </div>
+                        <button onclick="handleAdminLogin()" class="w-full py-4 rounded-full bg-gradient-to-r from-themeColor-500 to-spiritualGold-500 hover:from-themeColor-600 hover:to-spiritualGold-600 text-white font-bold transition text-xs shadow-lg">
+                            Authorize Entry
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Admin Real-Time Dashboard (Hidden until logged in) -->
+            <div id="admin-dashboard-screen" class="hidden min-h-[80vh] bg-stone-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto space-y-10">
+                    
+                    <!-- Admin Header Section -->
+                    <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-stone-200 pb-6 gap-4">
+                        <div class="flex items-center gap-4">
+                            <img src="Transparent logo.png" alt="Admin Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none';">
+                            <div>
+                                <span class="text-xs uppercase font-bold text-themeColor-500 tracking-wider">iChaitanya Systems Command</span>
+                                <h1 class="serif-title text-3xl font-bold text-stone-900">Saarthi Live Console</h1>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xs text-stone-500 font-medium">Logged in as <strong class="text-stone-800">Saarthi Master</strong></span>
+                            <button onclick="handleAdminLogout()" class="px-4 py-2 rounded-lg bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-bold transition flex items-center space-x-1.5">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                <span>Sign Out</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Stat 1 -->
+                        <div class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
+                            <div class="flex justify-between items-start text-stone-400">
+                                <span class="text-xs uppercase font-bold tracking-wider">Active Slots Scheduled</span>
+                                <span class="text-themeColor-500 text-xl"><i class="fa-solid fa-calendar-check"></i></span>
+                            </div>
+                            <div>
+                                <span class="text-3xl font-black text-stone-900" id="admin-stat-slots">5</span>
+                                <p class="text-[10px] text-stone-400 mt-1">Orientation, Bliss & Aura</p>
+                            </div>
+                        </div>
+                        <!-- Stat 2 -->
+                        <div class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
+                            <div class="flex justify-between items-start text-stone-400">
+                                <span class="text-xs uppercase font-bold tracking-wider">Total Sandbox Bookings</span>
+                                <span class="text-themeColor-500 text-xl"><i class="fa-solid fa-user-tag"></i></span>
+                            </div>
+                            <div>
+                                <span class="text-3xl font-black text-stone-900" id="admin-stat-bookings">148</span>
+                                <p class="text-[10px] text-emerald-600 font-bold mt-1"><i class="fa-solid fa-caret-up"></i> +12% vs last cycle</p>
+                            </div>
+                        </div>
+                        <!-- Stat 3 -->
+                        <div class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
+                            <div class="flex justify-between items-start text-stone-400">
+                                <span class="text-xs uppercase font-bold tracking-wider">Avg Session Join Rate</span>
+                                <span class="text-themeColor-500 text-xl"><i class="fa-solid fa-chart-line"></i></span>
+                            </div>
+                            <div>
+                                <span class="text-3xl font-black text-stone-900">86.4%</span>
+                                <p class="text-[10px] text-stone-400 mt-1">Excellent attendee stickiness</p>
+                            </div>
+                        </div>
+                        <!-- Stat 4 -->
+                        <div class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
+                            <div class="flex justify-between items-start text-stone-400">
+                                <span class="text-xs uppercase font-bold tracking-wider">Simulated Revenue</span>
+                                <span class="text-themeColor-500 text-xl"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+                            </div>
+                            <div>
+                                <span class="text-2xl font-black text-stone-900" id="admin-stat-revenue">₹18,450 + $420</span>
+                                <p class="text-[10px] text-stone-400 mt-1">Combined India & Global</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inner Management Tabs/Modules -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- Left Tab/Form: SLOT CREATION ENGINE -->
+                        <div class="lg:col-span-5 bg-white border border-stone-200 rounded-[2rem] p-8 shadow-sm space-y-6">
+                            <div class="border-b border-stone-100 pb-4">
+                                <h3 class="serif-title text-xl font-bold text-stone-900 flex items-center space-x-2">
+                                    <i class="fa-solid fa-clock-rotate-left text-themeColor-500 text-base"></i>
+                                    <span>Schedule Meditation Slot</span>
+                                </h3>
+                                <p class="text-stone-400 text-xs">Create live classes that users can register for.</p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Class Program Type</label>
+                                    <select id="slot-program-select" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                                        <option value="Live Orientation Session">Live Orientation Session (40 Min)</option>
+                                        <option value="Bliss Path Guided Batch">Bliss Path Program Batch (6 Days)</option>
+                                        <option value="Aura Night Meditation">Aura Night Meditation (10 Min)</option>
+                                    </select>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Date</label>
+                                        <input type="date" id="slot-date-input" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Timing Text</label>
+                                        <input type="text" id="slot-time-input" placeholder="eg. 09:00 PM IST" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Zoom Meeting ID</label>
+                                        <input type="text" id="slot-zoomid-input" placeholder="842 1284 9283" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Max Capacity (Seats)</label>
+                                        <input type="number" id="slot-capacity-input" value="30" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                                    </div>
+                                </div>
+                                
+                                <button onclick="handleCreateSlotSubmit()" class="w-full py-4 rounded-xl bg-stone-900 hover:bg-themeColor-500 text-white font-bold transition text-xs shadow-md">
+                                    Create Slot & Activate System Live
+                                </button>
+                            </div>
+
+                            <!-- List of active system slots -->
+                            <div class="pt-4 space-y-3">
+                                <h4 class="text-xs uppercase font-bold text-stone-400 tracking-wider">Active Program Slots List</h4>
+                                <div id="admin-active-slots-container" class="space-y-2.5 max-h-48 overflow-y-auto pr-1">
+                                    <!-- Dynamic elements injected here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: ZOOM ATTENDANCE LOG / PAST SESSIONS LOOKUP -->
+                        <div class="lg:col-span-7 bg-white border border-stone-200 rounded-[2rem] p-8 shadow-sm space-y-6">
+                            <div class="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <h3 class="serif-title text-xl font-bold text-stone-900 flex items-center space-x-2">
+                                        <i class="fa-solid fa-users-viewfinder text-themeColor-500 text-base"></i>
+                                        <span>Zoom Session Attendance Log</span>
+                                    </h3>
+                                    <p class="text-stone-400 text-xs">Check how many people joined past Zoom days or sessions.</p>
+                                </div>
+                            </div>
+
+                            <!-- Day/Session Filter Dropdown -->
+                            <div class="bg-stone-50 border border-stone-150 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="w-full sm:w-2/3">
+                                    <label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Select Day / Past Session Record</label>
+                                    <select id="session-log-select" onchange="renderSessionAttendanceDetail()" class="w-full px-3 py-2 rounded-xl border border-stone-200 focus:outline-none bg-white text-xs">
+                                        <!-- Pre-populated options -->
+                                    </select>
+                                </div>
+                                <div class="w-full sm:w-1/3 flex justify-end">
+                                    <button onclick="simulateNewSessionLogs()" class="px-4 py-2 rounded-xl bg-themeColor-100 border border-themeColor-200 text-themeColor-800 font-semibold text-xs hover:bg-themeColor-200 transition">
+                                        Simulate Fresh Session
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Active Selected Day Statistics Visual -->
+                            <div class="grid grid-cols-3 gap-4 border border-stone-100 rounded-2xl p-4 text-center">
+                                <div>
+                                    <p class="text-[10px] text-stone-400 uppercase font-medium">Total Registrants</p>
+                                    <p class="font-bold text-xl text-stone-800" id="sess-stat-reg">0</p>
+                                </div>
+                                <div class="border-x border-stone-100">
+                                    <p class="text-[10px] text-stone-400 uppercase font-medium">Joined Zoom Session</p>
+                                    <p class="font-bold text-xl text-themeColor-500" id="sess-stat-joined">0</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-stone-400 uppercase font-medium">Join Rate</p>
+                                    <p class="font-bold text-xl text-emerald-600" id="sess-stat-rate">0%</p>
+                                </div>
+                            </div>
+
+                            <!-- Detailed Attendees Checklist table -->
+                            <div class="space-y-3">
+                                <h4 class="text-xs uppercase font-bold text-stone-400 tracking-wider">Attendance Verification Log Sheet</h4>
+                                <div class="border border-stone-100 rounded-2xl overflow-hidden shadow-inner max-h-64 overflow-y-auto">
+                                    <table class="w-full text-left text-xs text-stone-600">
+                                        <thead class="bg-stone-50 text-stone-500 font-bold border-b border-stone-100">
+                                            <tr>
+                                                <th class="px-4 py-3">Participant Name</th>
+                                                <th class="px-4 py-3">Phone / Contact</th>
+                                                <th class="px-4 py-3">Status</th>
+                                                <th class="px-4 py-3 text-right">Joined Log Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="session-log-rows-container">
+                                            <!-- Dynamic elements generated by JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="py-20 bg-[#fcfbfa] border-t border-stone-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+            <h2 class="serif-title text-3xl sm:text-4xl font-bold text-stone-900">Meditation is already within you.</h2>
+            <p class="text-stone-600 max-w-xl mx-auto text-base">We help you return to it consciously. Join us in our next live Zoom session and experience stillness.</p>
+            <div class="pt-4">
+                <button onclick="navigateTo('orientation')" class="px-8 py-4 bg-gradient-to-r from-themeColor-500 to-spiritualGold-500 text-white font-bold rounded-full shadow-lg hover:opacity-95 transition-all">
+                    Join the Next Orientation (₹199 / $25)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-white pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 border-b border-white/10 pb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center cursor-pointer" onclick="navigateTo('home')">
+                        <img id="footer-brand-logo" src="Transparent logo.png" alt="iChaitanya Footer Logo" class="h-10 w-auto object-contain brightness-110 filter" onerror="this.style.display='none'; document.getElementById('footer-fallback-logo').classList.remove('hidden');">
+                        <div id="footer-fallback-logo" class="hidden flex items-center">
+                            <div class="h-9 w-9 rounded-full bg-gradient-to-tr from-themeColor-500 to-spiritualGold-500 flex items-center justify-center text-white font-bold text-sm serif-title">iC</div>
+                            <span class="ml-2.5 font-bold text-lg tracking-wide serif-title">iChaitanya</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-stone-400 leading-relaxed">Discovering meditation not as a forced practice, but as an elegant returning home.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-stone-200 text-xs uppercase tracking-wider mb-4">Guided Practices</h5>
+                    <ul class="space-y-2.5 text-xs text-stone-400">
+                        <li><button onclick="navigateTo('orientation')" class="hover:text-themeColor-400 transition">Live Orientation</button></li>
+                        <li><button onclick="navigateTo('bliss-path')" class="hover:text-themeColor-400 transition">Bliss Path Program</button></li>
+                        <li><button onclick="navigateTo('aura-night')" class="hover:text-themeColor-400 transition">Aura Night Meditation</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-stone-200 text-xs uppercase tracking-wider mb-4">Specialized Channels</h5>
+                    <ul class="space-y-2.5 text-xs text-stone-400">
+                        <li><button onclick="navigateTo('one-to-one')" class="hover:text-themeColor-400 transition">iC One-to-One Private</button></li>
+                        <li><span class="text-stone-500">Open Eye Meditation (Advanced)</span></li>
+                        <li><span class="text-stone-500">Habit De-addiction Sequence</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-stone-200 text-xs uppercase tracking-wider mb-4">Quick Links</h5>
+                    <ul class="space-y-2.5 text-xs text-stone-400">
+                        <li><button onclick="navigateTo('about')" class="hover:text-themeColor-400 transition">About Umesh Misra (Saarthi)</button></li>
+                        <li><button onclick="navigateTo('testimonials')" class="hover:text-themeColor-400 transition">Meditator Testimonials</button></li>
+                        <li><button onclick="navigateTo('admin')" class="hover:text-themeColor-400 font-bold transition flex items-center space-x-1"><i class="fa-solid fa-lock-open mr-1"></i><span>Admin Console</span></button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500 gap-4">
+                <p>&copy; 2026 iChaitanya Meditation Portal. Guided by Umesh Misra. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <span>Privacy Policy</span>
+                    <span>Terms & Service</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================= MODERN INTERACTIVE MODALS ================= -->
+    
+    <!-- 1. Checkout / Ticket Generator Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-stone-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-[2.5rem] shadow-2xl border border-stone-200 w-full max-w-lg overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="checkout-content">
+            <!-- Modal Header -->
+            <div class="bg-stone-50 px-8 py-6 border-b border-stone-100 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="Transparent logo.png" alt="Checkout Logo" class="h-8 w-auto object-contain" onerror="this.style.display='none';">
+                    <div>
+                        <span class="text-[9px] uppercase font-bold text-stone-400 tracking-wider">iChaitanya Live Gateway</span>
+                        <h3 class="serif-title text-xl font-bold text-stone-900" id="modal-program-title">Program Checkout</h3>
+                    </div>
+                </div>
+                <button onclick="closeCheckout()" class="text-stone-400 hover:text-stone-600 focus:outline-none p-1.5 bg-stone-100 rounded-full transition"><i class="fa-solid fa-xmark text-sm"></i></button>
+            </div>
+
+            <!-- Form Screen -->
+            <div id="checkout-form-screen" class="p-8 space-y-5">
+                <!-- Toggle Region/Currency -->
+                <div class="flex bg-stone-100 p-1.5 rounded-full mb-2">
+                    <button onclick="setCurrency('INR')" id="cur-btn-inr" class="flex-1 text-center py-2 rounded-full text-xs font-bold bg-white text-themeColor-900 shadow">India (₹)</button>
+                    <button onclick="setCurrency('USD')" id="cur-btn-usd" class="flex-1 text-center py-2 rounded-full text-xs font-semibold text-stone-600 hover:text-stone-950">Global ($)</button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Full Name</label>
+                        <input type="text" id="chk-name" placeholder="Aman Sharma" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">WhatsApp / Phone</label>
+                        <input type="tel" id="chk-phone" placeholder="+91 99999 99999" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs font-mono">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Email Address</label>
+                        <input type="email" id="chk-email" placeholder="aman@example.com" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Select Scheduled Batch</label>
+                        <select id="chk-selected-slot" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-themeColor-500 text-xs font-semibold text-stone-800">
+                            <!-- Populated dynamically via JS state slots -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-themeColor-50 border border-themeColor-100 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <p class="text-xs font-bold text-themeColor-950">Secure Enrollment Ticket</p>
+                        <p class="text-[10px] text-themeColor-700">Immediate WhatsApp & Email Zoom details</p>
+                    </div>
+                    <span class="font-black text-lg text-themeColor-900" id="modal-price-val">₹199</span>
+                </div>
+
+                <button onclick="processSimulatedPayment()" class="w-full py-4 rounded-full bg-gradient-to-r from-themeColor-500 to-spiritualGold-500 text-white font-bold transition text-xs shadow-lg flex items-center justify-center space-x-2">
+                    <span>Process Sandbox Payment</span>
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+            </div>
+
+            <!-- Loading Screen inside Checkout -->
+            <div id="checkout-loading-screen" class="hidden p-16 flex flex-col items-center justify-center space-y-6">
+                <div class="h-16 w-16 rounded-full border-4 border-themeColor-500 border-t-transparent animate-spin"></div>
+                <div class="text-center">
+                    <p class="font-bold text-stone-800 text-sm">Authenticating Secure Payment...</p>
+                    <p class="text-[10px] text-stone-400 mt-1">Contacting secure sandbox server</p>
+                </div>
+            </div>
+
+            <!-- Ticket / Receipt Generation Screen -->
+            <div id="checkout-ticket-screen" class="hidden p-8 space-y-6 bg-stone-50">
+                <div class="text-center space-y-2">
+                    <div class="h-12 w-12 rounded-full bg-themeColor-100 text-themeColor-600 flex items-center justify-center mx-auto text-xl animate-bounce"><i class="fa-solid fa-check"></i></div>
+                    <h4 class="serif-title text-xl font-bold text-stone-900">Seat Secured Successfully!</h4>
+                    <p class="text-xs text-stone-500">Your live Zoom access pass is created below.</p>
+                </div>
+
+                <!-- Virtual pass representation -->
+                <div class="bg-white border-2 border-dashed border-stone-200 rounded-3xl p-6 shadow-sm space-y-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 h-10 w-10 bg-themeColor-500 text-white flex items-center justify-center rounded-bl-2xl font-bold text-xs">iC</div>
+                    
+                    <div>
+                        <p class="text-[9px] uppercase font-bold text-stone-400">Class Pass</p>
+                        <p class="font-bold text-stone-800 text-sm" id="pass-program-name">Live Orientation Batch</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-[11px] border-t border-b border-stone-100 py-3">
+                        <div>
+                            <p class="text-stone-400 font-medium">Attendee Name:</p>
+                            <p class="font-bold text-stone-800" id="pass-attendee-name">Jane Doe</p>
+                        </div>
+                        <div>
+                            <p class="text-stone-400 font-medium">Scheduled Target Time:</p>
+                            <span class="text-themeColor-600 font-bold" id="pass-target-time">Zoom Scheduled Active</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between text-[10px]">
+                        <div>
+                            <p class="text-stone-400 font-medium">Receipt ID:</p>
+                            <p class="font-mono text-stone-600 font-bold" id="pass-receipt-id">iC-92841-A</p>
+                        </div>
+                        <div class="bg-stone-100 p-1.5 rounded-lg border border-stone-200">
+                            <!-- SVG QR Simulator -->
+                            <svg class="h-8 w-8 text-stone-800" fill="currentColor" viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 3h3v3h-3v-3zm3 3h3v2h-3v-2zm-3-6h2v2h-2v-2zm5 2h1v1h-1v-1zm-3 2h1v1h-1v-1z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <button onclick="closeCheckout()" class="w-full text-center py-3 bg-stone-900 text-white font-bold rounded-xl text-xs hover:bg-stone-800 transition shadow">Done</button>
+                    <p class="text-[10px] text-center text-stone-400 italic">Access details have been pushed to WhatsApp</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT STATE ENGINE ================= -->
+    <script>
+        // System States & Database simulation
+        const SYSTEM_STATE = {
+            // Logged status
+            isAdminLoggedIn: false,
+            
+            // Dynamic list of created slots
+            slots: [
+                { id: "slot-1", program: "Live Orientation Session", date: "2026-06-05", time: "05:00 PM IST", zoomId: "842 1284 9283", capacity: 30, registered: 18 },
+                { id: "slot-2", program: "Live Orientation Session", date: "2026-06-06", time: "11:00 AM IST", zoomId: "855 2394 1222", capacity: 30, registered: 12 },
+                { id: "slot-3", program: "Bliss Path Guided Batch", date: "2026-06-08", time: "07:00 PM IST", zoomId: "912 3345 8821", capacity: 15, registered: 9 },
+                { id: "slot-4", program: "Aura Night Meditation", date: "2026-06-04", time: "09:00 PM IST", zoomId: "776 2112 0049", capacity: 100, registered: 45 }
+            ],
+
+            // Simulation Log of actual session joined percentages
+            pastSessionsLog: [
+                {
+                    id: "past-sess-1",
+                    programName: "Aura Night Meditation",
+                    date: "2026-06-02",
+                    timingText: "09:00 PM - 09:10 PM",
+                    registrantsCount: 42,
+                    joinedCount: 38,
+                    attendees: [
+                        { name: "Deepak Sharma", contact: "+91 98321 00421", joined: true, logTime: "08:59 PM" },
+                        { name: "Nidhi Agrawal", contact: "+91 77623 99120", joined: true, logTime: "09:00 PM" },
+                        { name: "Sarah Miller", contact: "+1 (415) 332-9012", joined: true, logTime: "08:58 PM" },
+                        { name: "Jessica King", contact: "+1 (212) 881-0422", joined: true, logTime: "09:01 PM" },
+                        { name: "Rajesh K.", contact: "+91 99124 33221", joined: false, logTime: "--" },
+                        { name: "Meera Das", contact: "+91 88329 11204", joined: true, logTime: "08:59 PM" },
+                        { name: "Aman Sood", contact: "+91 90123 44556", joined: true, logTime: "09:00 PM" },
+                        { name: "Suresh Pillai", contact: "+91 94432 12093", joined: false, logTime: "--" },
+                        { name: "Vikram Sen", contact: "+91 80921 44223", joined: true, logTime: "09:02 PM" },
+                        { name: "Alisha S.", contact: "+44 7911 123456", joined: true, logTime: "08:58 PM" }
+                    ]
+                },
+                {
+                    id: "past-sess-2",
+                    programName: "Live Orientation Session",
+                    date: "2026-05-31",
+                    timingText: "05:00 PM - 05:40 PM",
+                    registrantsCount: 25,
+                    joinedCount: 21,
+                    attendees: [
+                        { name: "Rohan Verma", contact: "+91 88231 11044", joined: true, logTime: "04:55 PM" },
+                        { name: "Priyanka Sen", contact: "+91 90432 00122", joined: true, logTime: "04:57 PM" },
+                        { name: "Andreas Muller", contact: "+49 170 1234567", joined: true, logTime: "04:50 PM" },
+                        { name: "Rajat Sethi", contact: "+91 70123 99221", joined: true, logTime: "04:59 PM" },
+                        { name: "Karla Adams", contact: "+1 (312) 441-2911", joined: false, logTime: "--" },
+                        { name: "Aman Sen", contact: "+91 99221 00392", joined: true, logTime: "04:56 PM" },
+                        { name: "Nitin Sharma", contact: "+91 84321 00391", joined: false, logTime: "--" }
+                    ]
+                },
+                {
+                    id: "past-sess-3",
+                    programName: "Bliss Path Guided Batch (Day 3)",
+                    date: "2026-05-28",
+                    timingText: "07:00 PM - 07:45 PM",
+                    registrantsCount: 15,
+                    joinedCount: 14,
+                    attendees: [
+                        { name: "Devika Roy", contact: "+91 99124 00492", joined: true, logTime: "06:55 PM" },
+                        { name: "Rahul S.", contact: "+91 88321 44552", joined: true, logTime: "06:58 PM" },
+                        { name: "Karan Johar", contact: "+91 74211 00332", joined: true, logTime: "06:54 PM" },
+                        { name: "Suman B.", contact: "+91 99112 00492", joined: false, logTime: "--" },
+                        { name: "George W.", contact: "+1 (512) 902-1200", joined: true, logTime: "06:52 PM" }
+                    ]
+                }
+            ],
+
+            // Current registration/revenue metrics
+            revenueINR: 18450,
+            revenueUSD: 420,
+            totalBookingsCount: 148
+        };
+
+        // Navigation State
+        let currentView = 'home';
+        let isMenuOpen = false;
+        let selectedProduct = '';
+        let currentPriceINR = 199;
+        let currentPriceUSD = 25;
+        let selectedCurrency = 'INR';
+
+        // Web Audio Synthesizers Context
+        let audioCtx = null;
+        let bowlOscillator = null;
+        let bowlGain = null;
+        let whiteNoiseNode = null;
+        let noiseGain = null;
+
+        // Sound State variables
+        let isBowlPlaying = false;
+        let isNightAudioPlaying = false;
+
+        // Window load starter
+        window.onload = function() {
+            // Setup Clutter Game elements
+            resetClutterGame();
+            // Start automated breathing bubble visual sync cycles
+            runBreathingCycleHelper();
+            // Trigger night starry backdrop canvas
+            initStarfield();
+            // Populate slots dropdowns and system elements dynamically
+            repopulateDynamicSelectors();
+            // Check routing triggers (hash routing compatibility)
+            handleHashRouting();
+        };
+
+        // Listen for routing changes via direct hashes (e.g. /#admin)
+        window.addEventListener("hashchange", handleHashRouting);
+
+        function handleHashRouting() {
+            const hash = window.location.hash.substring(1);
+            if (hash === "admin") {
+                navigateTo("admin");
+            } else if (hash === "orientation" || hash === "bliss-path" || hash === "aura-night" || hash === "one-to-one" || hash === "testimonials" || hash === "about") {
+                navigateTo(hash);
+            }
+        }
+
+        // Navigation engine
+        function navigateTo(viewId) {
+            // Update menu highlighting states
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if(link.getAttribute('onclick') && link.getAttribute('onclick').includes(viewId)) {
+                    link.classList.add('text-themeColor-500', 'active-nav-link');
+                } else {
+                    link.classList.remove('text-themeColor-500', 'active-nav-link');
+                }
+            });
+
+            // Smooth scroll to top of page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Toggle view visibility
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(view => {
+                if(view.id === `page-${viewId}`) {
+                    view.classList.remove('hidden');
+                    view.classList.add('page-fade-enter');
+                    setTimeout(() => {
+                        view.classList.add('page-fade-active');
+                    }, 40);
+                } else {
+                    view.classList.add('hidden');
+                    view.classList.remove('page-fade-enter', 'page-fade-active');
+                }
+            });
+
+            currentView = viewId;
+
+            // Trigger conditional renders
+            if(viewId === 'admin') {
+                renderAdminScreen();
+            }
+        }
+
+        // Mobile Menu Toggler
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if(menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = "fa-solid fa-xmark text-xl";
+            } else {
+                menu.classList.add('hidden');
+                icon.className = "fa-solid fa-bars text-xl";
+            }
+        }
+
+        // FAQ Collapse Toggle
+        function toggleFaq(index) {
+            const ans = document.getElementById(`faq-ans-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            if(ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.className = "fa-solid fa-minus text-stone-500 text-sm transition-transform duration-200";
+            } else {
+                ans.classList.add('hidden');
+                icon.className = "fa-solid fa-plus text-stone-400 text-sm transition-transform duration-200";
+            }
+        }
+
+        // Testimonials Filtering
+        function filterTestimonials(category) {
+            const cards = document.querySelectorAll('.testimonial-card');
+            const buttons = document.querySelectorAll('.testimonial-tab-btn');
+            
+            buttons.forEach(btn => {
+                if(btn.getAttribute('onclick').includes(category)) {
+                    btn.className = "testimonial-tab-btn px-5 py-2 rounded-full border border-themeColor-600 bg-themeColor-600 text-white text-xs font-semibold transition";
+                } else {
+                    btn.className = "testimonial-tab-btn px-5 py-2 rounded-full border border-stone-200 bg-white hover:border-themeColor-500 text-stone-700 text-xs font-semibold transition";
+                }
+            });
+
+            cards.forEach(card => {
+                if(category === 'all' || card.getAttribute('data-cat') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Dynamic element selector population (Synchronizing newly created slots into booking form)
+        function repopulateDynamicSelectors() {
+            const selectEl = document.getElementById('chk-selected-slot');
+            if(!selectEl) return;
+            selectEl.innerHTML = '';
+
+            SYSTEM_STATE.slots.forEach(slot => {
+                const opt = document.createElement('option');
+                opt.value = slot.id;
+                opt.innerText = `${slot.program} (${slot.time} - ${slot.date})`;
+                selectEl.appendChild(opt);
+            });
+        }
+
+        // Checkout Modal Functions
+        function openCheckout(productName, priceInr, priceUsd) {
+            selectedProduct = productName;
+            currentPriceINR = priceInr;
+            currentPriceUSD = priceUsd;
+
+            document.getElementById('modal-program-title').innerText = `Checkout: ${productName}`;
+            updateCheckoutPriceDisplay();
+            repopulateDynamicSelectors();
+
+            document.getElementById('checkout-form-screen').classList.remove('hidden');
+            document.getElementById('checkout-loading-screen').classList.add('hidden');
+            document.getElementById('checkout-ticket-screen').classList.add('hidden');
+
+            const modal = document.getElementById('checkout-modal');
+            const content = document.getElementById('checkout-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+            }, 50);
+        }
+
+        function closeCheckout() {
+            const modal = document.getElementById('checkout-modal');
+            const content = document.getElementById('checkout-content');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function setCurrency(cur) {
+            selectedCurrency = cur;
+            const inrBtn = document.getElementById('cur-btn-inr');
+            const usdBtn = document.getElementById('cur-btn-usd');
+
+            if(cur === 'INR') {
+                inrBtn.className = "flex-1 text-center py-2 rounded-full text-xs font-bold bg-white text-themeColor-900 shadow";
+                usdBtn.className = "flex-1 text-center py-2 rounded-full text-xs font-semibold text-stone-600 hover:text-stone-950";
+            } else {
+                usdBtn.className = "flex-1 text-center py-2 rounded-full text-xs font-bold bg-white text-themeColor-900 shadow";
+                inrBtn.className = "flex-1 text-center py-2 rounded-full text-xs font-semibold text-stone-600 hover:text-stone-950";
+            }
+            updateCheckoutPriceDisplay();
+        }
+
+        function updateCheckoutPriceDisplay() {
+            const priceVal = document.getElementById('modal-price-val');
+            if(selectedCurrency === 'INR') {
+                priceVal.innerText = `₹${currentPriceINR}`;
+            } else {
+                priceVal.innerText = `$${currentPriceUSD}`;
+            }
+        }
+
+        // Process Simulated Payment with Sandbox Mode (Adds record dynamically to Admin dashboard registrations!)
+        function processSimulatedPayment() {
+            const nameInput = document.getElementById('chk-name').value;
+            const phoneInput = document.getElementById('chk-phone').value;
+            const emailInput = document.getElementById('chk-email').value;
+            const selectedSlotId = document.getElementById('chk-selected-slot').value;
+
+            if(!nameInput || !phoneInput || !emailInput) {
+                showToast("Please complete all user registration inputs.", "warning");
+                return;
+            }
+
+            document.getElementById('checkout-form-screen').classList.add('hidden');
+            document.getElementById('checkout-loading-screen').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('checkout-loading-screen').classList.add('hidden');
+                document.getElementById('checkout-ticket-screen').classList.remove('hidden');
+
+                // Update metrics in global state
+                SYSTEM_STATE.totalBookingsCount += 1;
+                if(selectedCurrency === 'INR') {
+                    SYSTEM_STATE.revenueINR += currentPriceINR;
+                } else {
+                    SYSTEM_STATE.revenueUSD += currentPriceUSD;
+                }
+
+                // Increment registrants of actual class slot
+                const matchedSlot = SYSTEM_STATE.slots.find(s => s.id === selectedSlotId);
+                let targetTimeStr = "Zoom Scheduled Link Sent";
+                if(matchedSlot) {
+                    matchedSlot.registered += 1;
+                    targetTimeStr = `${matchedSlot.time} (${matchedSlot.date})`;
+                }
+
+                // Append custom attendee to the next simulated past session logs for showcase
+                const orientLog = SYSTEM_STATE.pastSessionsLog.find(s => s.programName.includes("Orientation"));
+                if(orientLog) {
+                    orientLog.registrantsCount += 1;
+                    // randomly simulate if this specific client also joined zoom
+                    const joinedZoom = Math.random() > 0.15; 
+                    if(joinedZoom) orientLog.joinedCount += 1;
+                    orientLog.text = orientLog.programName;
+                    orientLog.attendees.unshift({
+                        name: nameInput,
+                        contact: phoneInput,
+                        joined: joinedZoom,
+                        logTime: joinedZoom ? "04:56 PM" : "--"
+                    });
+                }
+
+                // Bind Pass Details
+                document.getElementById('pass-program-name').innerText = selectedProduct;
+                document.getElementById('pass-attendee-name').innerText = nameInput;
+                document.getElementById('pass-target-time').innerText = targetTimeStr;
+                document.getElementById('pass-receipt-id').innerText = `iC-${Math.floor(10000 + Math.random() * 90000)}-S`;
+                
+                showToast("Payment Sandbox processed successfully!", "success");
+                
+                // Keep dashboards in-sync
+                repopulateDynamicSelectors();
+                updateAdminDashboardUI();
+            }, 1800);
+        }
+
+        // WhatsApp Private call submit coordinator
+        function submitConsultationRequest() {
+            const name = document.getElementById('consult-name').value;
+            const phone = document.getElementById('consult-phone').value;
+            const challenge = document.getElementById('consult-challenge').value;
+
+            if(!name || !phone) {
+                showToast("Kindly input Name & Contact details.", "warning");
+                return;
+            }
+
+            const formattedMessage = encodeURIComponent(`Hello iChaitanya Desk, I am interested in booking a 1-to-1 Private Session with Umesh Misra.\n\nName: ${name}\nContact: ${phone}\nPrimary Focus Challenge: ${challenge}`);
+            const whatsappUrl = `https://wa.me/919999999999?text=${formattedMessage}`;
+            
+            showToast("Opening WhatsApp Request Channel...", "success");
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 1000);
+        }
+
+        // Action visual Toast Notifications
+        function showToast(message, type = "success") {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full text-xs font-semibold shadow-xl transition-all duration-300 transform translate-y-2 opacity-0 flex items-center space-x-2 border`;
+            
+            if(type === 'success') {
+                toast.classList.add('bg-themeColor-950', 'text-themeColor-300', 'border-themeColor-500');
+                toast.innerHTML = `<i class="fa-solid fa-circle-check text-themeColor-400"></i> <span>${message}</span>`;
+            } else if (type === 'warning') {
+                toast.classList.add('bg-amber-950', 'text-amber-300', 'border-amber-500');
+                toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400"></i> <span>${message}</span>`;
+            }
+
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 100);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 3000);
+        }
+
+        // Tibetan Healing Singing Bowl Oscillator Synthesizer (432Hz Om frequencies)
+        function toggleHealingBowlSound() {
+            if(!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const playBtn = document.getElementById('bowl-play-btn');
+            const icon = document.getElementById('bowl-icon');
+            const statusText = document.getElementById('bowl-status');
+            const soundwave = document.getElementById('soundwave');
+
+            if(!isBowlPlaying) {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                bowlOscillator = audioCtx.createOscillator();
+                bowlGain = audioCtx.createGain();
+                
+                bowlOscillator.type = 'sine';
+                bowlOscillator.frequency.value = 136.1; // Meditative cosmic pitch (OM frequency)
+
+                bowlGain.gain.setValueAtTime(0, audioCtx.currentTime);
+                bowlGain.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + 1.2);
+
+                let lfo = audioCtx.createOscillator();
+                let lfoGain = audioCtx.createGain();
+                lfo.frequency.value = 0.25; 
+                lfoGain.gain.value = 0.15; 
+
+                lfo.connect(lfoGain);
+                lfoGain.connect(bowlGain.gain);
+                
+                bowlOscillator.connect(bowlGain);
+                bowlGain.connect(audioCtx.destination);
+
+                lfo.start();
+                bowlOscillator.start();
+
+                isBowlPlaying = true;
+                icon.className = "fa-solid fa-volume-high text-lg";
+                statusText.innerText = "Quiet Mind Flowing...";
+                soundwave.classList.remove('hidden');
+                showToast("Healing frequency activated", "success");
+            } else {
+                if(bowlGain) {
+                    bowlGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.8);
+                    setTimeout(() => {
+                        if(bowlOscillator) {
+                            bowlOscillator.stop();
+                            bowlOscillator.disconnect();
+                        }
+                    }, 900);
+                }
+
+                isBowlPlaying = false;
+                icon.className = "fa-solid fa-wind text-lg";
+                statusText.innerText = "Activate Calm Frequency";
+                soundwave.classList.add('hidden');
+            }
+        }
+
+        // Web Audio Synthesizer: Rain & Sea ambient generator
+        function toggleAmbientNightSound() {
+            if(!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const label = document.getElementById('night-audio-label');
+            const icon = document.getElementById('night-audio-icon');
+
+            if(!isNightAudioPlaying) {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const bufferSize = 2 * audioCtx.sampleRate;
+                const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = Math.random() * 2 - 1;
+                }
+
+                whiteNoiseNode = audioCtx.createBufferSource();
+                whiteNoiseNode.buffer = noiseBuffer;
+                whiteNoiseNode.loop = true;
+
+                const lowpassFilter = audioCtx.createBiquadFilter();
+                lowpassFilter.type = 'lowpass';
+                lowpassFilter.frequency.value = 550; 
+
+                noiseGain = audioCtx.createGain();
+                noiseGain.gain.setValueAtTime(0, audioCtx.currentTime);
+                noiseGain.gain.linearRampToValueAtTime(0.22, audioCtx.currentTime + 1.8); 
+
+                whiteNoiseNode.connect(lowpassFilter);
+                lowpassFilter.connect(noiseGain);
+                noiseGain.connect(audioCtx.destination);
+
+                whiteNoiseNode.start();
+
+                isNightAudioPlaying = true;
+                label.innerText = "Disable Ambient Night Rain";
+                icon.className = "fa-solid fa-volume-high text-themeColor-400";
+            } else {
+                if(noiseGain) {
+                    noiseGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.8);
+                    setTimeout(() => {
+                        if(whiteNoiseNode) {
+                            whiteNoiseNode.stop();
+                        }
+                    }, 1000);
+                }
+
+                isNightAudioPlaying = false;
+                label.innerText = "Enable Ambient Night Rain";
+                icon.className = "fa-solid fa-moon";
+            }
+        }
+
+        // Automated breathing cyclic state indicator text updates
+        function runBreathingCycleHelper() {
+            const breathText = document.getElementById('breath-text');
+            const cycleText = ["Breathe In...", "Hold Calmness...", "Exhale Stress...", "Rest Quietly..."];
+            let step = 0;
+
+            setInterval(() => {
+                if(breathText) {
+                    breathText.innerText = cycleText[step];
+                    for(let i=1; i<=4; i++) {
+                        const dot = document.getElementById(`b-dot-${i}`);
+                        if(dot) {
+                            if(i === step + 1) {
+                                dot.className = "h-1.5 w-1.5 rounded-full bg-themeColor-500 scale-125 transition-all duration-300";
+                            } else {
+                                dot.className = "h-1.5 w-1.5 rounded-full bg-stone-300 transition-all duration-300";
+                            }
+                        }
+                    }
+                    step = (step + 1) % 4;
+                }
+            }, 2000); 
+        }
+
+        // Mind Clutter dynamic float mechanics
+        const stressThoughtsList = [
+            "Overthinking", "Anxiety Loop", "Work Stress", 
+            "Self Doubt", "Past Regrets", "Future Fears", "Lingering Sorrow"
+        ];
+        let currentActiveThoughts = 0;
+
+        function resetClutterGame() {
+            const container = document.getElementById('mind-container');
+            const victory = document.getElementById('mind-victory-msg');
+            if(!container) return;
+
+            container.innerHTML = '';
+            victory.classList.add('hidden');
+            currentActiveThoughts = stressThoughtsList.length;
+
+            stressThoughtsList.forEach((thought, idx) => {
+                const element = document.createElement('div');
+                element.className = `absolute px-4 py-2 bg-stone-800/90 border border-stone-700 hover:bg-red-950 hover:border-themeColor-500 rounded-full text-stone-100 text-xs font-bold cursor-pointer transition shadow-md select-none duration-150 transform hover:scale-110`;
+                element.innerText = thought;
+                
+                const randX = 10 + Math.random() * 70; 
+                const randY = 15 + Math.random() * 60; 
+                element.style.left = `${randX}%`;
+                element.style.top = `${randY}%`;
+
+                element.style.animation = `soundWave ${2.5 + idx*0.4}s infinite ease-in-out`;
+
+                element.addEventListener('click', function() {
+                    element.classList.add('scale-50', 'opacity-0');
+                    playFocusDissolveSound();
+                    setTimeout(() => {
+                        element.remove();
+                        currentActiveThoughts--;
+                        if(currentActiveThoughts === 0) {
+                            victory.classList.remove('hidden');
+                        }
+                    }, 200);
+                });
+
+                container.appendChild(element);
+            });
+        }
+
+        function playFocusDissolveSound() {
+            if(!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if(audioCtx.state === 'suspended') return;
+
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(550, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.15); 
+
+            gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.15);
+
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.16);
+        }
+
+        // Night Starfield background particle simulation
+        function initStarfield() {
+            const canvas = document.getElementById('starfield');
+            if(!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            const stars = [];
+            for(let i = 0; i < 70; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: 0.5 + Math.random() * 1.5,
+                    alpha: 0.2 + Math.random() * 0.8,
+                    speed: 0.05 + Math.random() * 0.15
+                });
+            }
+
+            function renderStars() {
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = "#ffffff";
+                
+                stars.forEach(star => {
+                    ctx.globalAlpha = star.alpha;
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    star.y -= star.speed;
+                    if(star.y < 0) star.y = height;
+                });
+
+                requestAnimationFrame(renderStars);
+            }
+
+            renderStars();
+
+            window.addEventListener('resize', function() {
+                if(canvas) {
+                    width = canvas.width = canvas.offsetWidth;
+                    height = canvas.height = canvas.offsetHeight;
+                }
+            });
+        }
+
+
+        // ==========================================
+        //         ADMIN CONSOLE ENGINE LOGIC
+        // ==========================================
+        
+        // Render view router trigger for Admin Screen
+        function renderAdminScreen() {
+            const loginScreen = document.getElementById('admin-login-screen');
+            const dashboardScreen = document.getElementById('admin-dashboard-screen');
+
+            if (SYSTEM_STATE.isAdminLoggedIn) {
+                loginScreen.classList.add('hidden');
+                dashboardScreen.classList.remove('hidden');
+                updateAdminDashboardUI();
+            } else {
+                loginScreen.classList.remove('hidden');
+                dashboardScreen.classList.add('hidden');
+            }
+        }
+
+        // Validate credentials & auth transition
+        function handleAdminLogin() {
+            const userInp = document.getElementById('admin-username-input').value;
+            const passInp = document.getElementById('admin-password-input').value;
+
+            if (userInp === 'admin' && passInp === 'admin') {
+                SYSTEM_STATE.isAdminLoggedIn = true;
+                showToast("Access Granted. Welcome Saarthi.", "success");
+                renderAdminScreen();
+            } else {
+                showToast("Invalid administrative keys.", "warning");
+            }
+        }
+
+        // Log out admin
+        function handleAdminLogout() {
+            SYSTEM_STATE.isAdminLoggedIn = false;
+            document.getElementById('admin-username-input').value = '';
+            document.getElementById('admin-password-input').value = '';
+            showToast("Logged out successfully.", "success");
+            renderAdminScreen();
+        }
+
+        // Re-calculate and draw metrics inside Dashboard UI
+        function updateAdminDashboardUI() {
+            // Stats
+            document.getElementById('admin-stat-slots').innerText = SYSTEM_STATE.slots.length;
+            document.getElementById('admin-stat-bookings').innerText = SYSTEM_STATE.totalBookingsCount;
+            document.getElementById('admin-stat-revenue').innerText = `₹${SYSTEM_STATE.revenueINR.toLocaleString()} + $${SYSTEM_STATE.revenueUSD}`;
+
+            // Slots container list
+            const slotsContainer = document.getElementById('admin-active-slots-container');
+            slotsContainer.innerHTML = '';
+
+            SYSTEM_STATE.slots.forEach(slot => {
+                const item = document.createElement('div');
+                item.className = "p-3 bg-stone-50 border border-stone-200/60 rounded-xl flex items-center justify-between text-xs";
+                
+                // Color badges based on type
+                let badgeColor = "bg-orange-100 text-orange-800";
+                if(slot.program.includes("Bliss")) badgeColor = "bg-themeColor-100 text-themeColor-900";
+                if(slot.program.includes("Aura")) badgeColor = "bg-stone-900 text-stone-100";
+
+                item.innerHTML = `
+                    <div class="space-y-1">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${badgeColor}">${slot.program}</span>
+                        <p class="font-bold text-stone-800 mt-1">${slot.time} &nbsp;&bull;&nbsp; ${slot.date}</p>
+                        <p class="text-[10px] text-stone-400 font-mono">Zoom Meeting: ${slot.zoomId}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="block font-bold text-stone-900">${slot.registered} / ${slot.capacity}</span>
+                        <p class="text-[10px] text-stone-400">Registered</p>
+                    </div>
+                `;
+                slotsContainer.appendChild(item);
+            });
+
+            // Populate Session Log Dropdown
+            const selectLog = document.getElementById('session-log-select');
+            const prevSelectedVal = selectLog.value;
+            selectLog.innerHTML = '';
+
+            SYSTEM_STATE.pastSessionsLog.forEach(session => {
+                const opt = document.createElement('option');
+                opt.value = session.id;
+                opt.innerText = `${session.programName} (${session.date} - ${session.timingText})`;
+                selectLog.appendChild(opt);
+            });
+
+            if (prevSelectedVal && SYSTEM_STATE.pastSessionsLog.find(s => s.id === prevSelectedVal)) {
+                selectLog.value = prevSelectedVal;
+            }
+
+            renderSessionAttendanceDetail();
+        }
+
+        // Handle addition of slot through admin input forms
+        function handleCreateSlotSubmit() {
+            const prog = document.getElementById('slot-program-select').value;
+            const sDate = document.getElementById('slot-date-input').value;
+            const sTime = document.getElementById('slot-time-input').value;
+            const zId = document.getElementById('slot-zoomid-input').value;
+            const cap = parseInt(document.getElementById('slot-capacity-input').value) || 30;
+
+            if (!sDate || !sTime || !zId) {
+                showToast("Kindly complete all scheduler values.", "warning");
+                return;
+            }
+
+            const newSlot = {
+                id: `slot-${Date.now()}`,
+                program: prog,
+                date: sDate,
+                time: sTime,
+                zoomId: zId,
+                capacity: cap,
+                registered: 0
+            };
+
+            SYSTEM_STATE.slots.push(newSlot);
+            showToast(`Meditation Slot created & scheduled successfully!`, "success");
+            
+            // Reset fields
+            document.getElementById('slot-date-input').value = '';
+            document.getElementById('slot-time-input').value = '';
+            document.getElementById('slot-zoomid-input').value = '';
+
+            // Update UI
+            updateAdminDashboardUI();
+        }
+
+        // Render attendance details for the selected past Zoom Session
+        function renderSessionAttendanceDetail() {
+            const selectLog = document.getElementById('session-log-select');
+            const targetId = selectLog.value;
+            const matchedSession = SYSTEM_STATE.pastSessionsLog.find(s => s.id === targetId);
+
+            const regEl = document.getElementById('sess-stat-reg');
+            const joinEl = document.getElementById('sess-stat-joined');
+            const rateEl = document.getElementById('sess-stat-rate');
+            const containerRows = document.getElementById('session-log-rows-container');
+
+            if (!matchedSession) {
+                regEl.innerText = '0';
+                joinEl.innerText = '0';
+                rateEl.innerText = '0%';
+                containerRows.innerHTML = `<tr><td colspan="4" class="px-4 py-8 text-center text-stone-400">No session logs selected or simulated.</td></tr>`;
+                return;
+            }
+
+            // Stats update
+            regEl.innerText = matchedSession.registrantsCount;
+            joinEl.innerText = matchedSession.joinedCount;
+            const percentage = matchedSession.registrantsCount > 0 
+                ? Math.round((matchedSession.joinedCount / matchedSession.registrantsCount) * 100) 
+                : 0;
+            rateEl.innerText = `${percentage}%`;
+
+            // Table rows update
+            containerRows.innerHTML = '';
+            matchedSession.attendees.forEach(attendee => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-stone-100 hover:bg-stone-50/50 transition";
+
+                const badge = attendee.joined 
+                    ? `<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-bold">Joined Zoom</span>`
+                    : `<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-800 text-[9px] font-bold">Absent</span>`;
+
+                tr.innerHTML = `
+                    <td class="px-4 py-3.5 font-semibold text-stone-800">${attendee.name}</td>
+                    <td class="px-4 py-3.5 font-mono text-stone-500">${attendee.contact}</td>
+                    <td class="px-4 py-3.5">${badge}</td>
+                    <td class="px-4 py-3.5 text-right font-mono text-stone-500 font-bold">${attendee.logTime}</td>
+                `;
+                containerRows.appendChild(tr);
+            });
+        }
+
+        // Simulate fresh past session randomly to show dashboard capabilities
+        function simulateNewSessionLogs() {
+            const possibleNames = ["Arjun Dev", "Sonia Patel", "Kavya Menon", "Aarav Gupta", "Preeti G.", "Chris Hemsworth", "Michael Chang", "Anjali Bose"];
+            const programs = ["Live Orientation Session", "Aura Night Meditation", "Bliss Path Guided Batch (Day 1)"];
+            
+            const randomProgName = programs[Math.floor(Math.random() * programs.length)];
+            const randomDate = new Date(Date.now() - Math.random() * 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            const randomCount = Math.floor(10 + Math.random() * 25);
+            const joinedRandomCount = Math.floor(randomCount * (0.75 + Math.random() * 0.25));
+
+            const generatedAttendees = [];
+            for (let i = 0; i < randomCount; i++) {
+                const name = possibleNames[i % possibleNames.length] + " " + String.fromCharCode(65 + i);
+                const hasJoined = i < joinedRandomCount;
+                generatedAttendees.push({
+                    name: name,
+                    contact: `+91 ${Math.floor(70000 + Math.random() * 29999)} ${Math.floor(10000 + Math.random() * 89999)}`,
+                    joined: hasJoined,
+                    logTime: hasJoined ? `0${4 + Math.floor(Math.random() * 5)}:${Math.floor(10 + Math.random()*49)} PM` : "--"
+                });
+            }
+
+            const simulatedSession = {
+                id: `past-sess-${Date.now()}`,
+                programName: randomProgName,
+                date: randomDate,
+                timingText: "06:00 PM - 06:40 PM",
+                registrantsCount: randomCount,
+                joinedCount: joinedRandomCount,
+                attendees: generatedAttendees
+            };
+
+            SYSTEM_STATE.pastSessionsLog.unshift(simulatedSession);
+            showToast("Generated new simulated past session attendance metrics!", "success");
+            
+            updateAdminDashboardUI();
+        }
+
+    </script>
+</body>
+</html>

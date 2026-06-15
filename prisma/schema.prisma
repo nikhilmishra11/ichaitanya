@@ -1,0 +1,210 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum BookingStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum AttendanceStatus {
+  NOT_MARKED
+  ATTENDED
+  NO_SHOW
+}
+
+enum ProgramType {
+  ORIENTATION
+  BLISS_PATH
+  OPEN_EYE
+  WALKING
+  HABIT_DEADDICTION
+  AURA_NIGHT
+  ONE_TO_ONE
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
+  phone     String?
+  country   String?
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Program {
+  id             String      @id @default(cuid())
+  name           String
+  slug           String      @unique
+  type           ProgramType
+  description    String
+  priceIndia     Int
+  priceGlobal    Int
+  currencyIndia  String      @default("INR")
+  currencyGlobal String      @default("USD")
+  schedule       String
+  zoomLink       String?
+  duration       String?
+  active         Boolean     @default(true)
+  batches        Batch[]
+  bookings       Booking[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model Batch {
+  id        String    @id @default(cuid())
+  programId String
+  program   Program   @relation(fields: [programId], references: [id], onDelete: Cascade)
+  startsAt  DateTime
+  capacity  Int
+  zoomLink  String?
+  active    Boolean   @default(true)
+  bookings  Booking[]
+  attendance Attendance[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  bookingReference String   @unique @default(cuid())
+  userId      String?
+  user        User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  programId   String
+  program     Program       @relation(fields: [programId], references: [id], onDelete: Cascade)
+  batchId     String?
+  batch       Batch?        @relation(fields: [batchId], references: [id], onDelete: SetNull)
+  name        String
+  email       String
+  phone       String
+  country     String
+  status      BookingStatus @default(PENDING)
+  attendanceStatus AttendanceStatus @default(NOT_MARKED)
+  notes       String?
+  amount      Int
+  currency    String
+  registeredAt DateTime     @default(now())
+  payment     Payment?
+  attendance  Attendance?
+  emailLogs   EmailLog[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  bookingId     String        @unique
+  booking       Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  provider      String
+  transactionId String        @unique
+  amount        Int
+  currency      String
+  status        BookingStatus
+  paidAt        DateTime?
+  logs          PaymentLog[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  country   String
+  content   String
+  category  String
+  featured  Boolean  @default(false)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EmailTemplate {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  name      String
+  subject   String
+  body      String
+  active    Boolean  @default(true)
+  logs      EmailLog[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EmailLog {
+  id          String        @id @default(cuid())
+  recipient   String
+  templateId  String?
+  template    EmailTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  bookingId   String?
+  booking     Booking?      @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  subject     String
+  status      String
+  sentAt      DateTime      @default(now())
+  error       String?
+}
+
+model PaymentLog {
+  id            String   @id @default(cuid())
+  paymentId     String?
+  payment       Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+  transactionId String
+  amount        Int
+  currency      String
+  status        String
+  payload       String?
+  timestamp     DateTime @default(now())
+}
+
+model Attendance {
+  id        String           @id @default(cuid())
+  bookingId String           @unique
+  booking   Booking          @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  batchId   String
+  batch     Batch            @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  status    AttendanceStatus @default(NOT_MARKED)
+  markedAt  DateTime?
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+model SystemConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  group     String
+  secret    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
