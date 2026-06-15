@@ -73,12 +73,20 @@ Sidebar structure:
 
 ## Environment
 
-Copy `.env.example` to `.env` and update secrets for production:
+Use the matching env profile for the environment you want to run:
 
-```env
-DATABASE_URL="file:./database.db"
-NEXTAUTH_URL="https://your-domain.com"
-NEXTAUTH_SECRET="replace-with-a-long-random-secret"
-```
+Local test:
+
+- Copy `.env.local.example` to `.env`
+- Keep `NEXTAUTH_URL` as `http://localhost:3000`
+- Use the seeded admin credentials from the admin login screen
+
+Production or Vercel preview:
+
+- Copy `.env.production.example` to `.env`
+- Set `NEXTAUTH_URL` to your deployed Vercel URL
+- Replace `NEXTAUTH_SECRET` with a long random value
+
+SQLite stays file-based in this project, so it is best suited for local testing and short-lived preview deployments.
 
 Operational Razorpay, PayPal, SMTP, WhatsApp, and website settings are stored in `SystemConfig` and managed in the admin portal.
