@@ -5,3 +5,6 @@ node_modules
 prisma/database.db
 prisma/migrations
 .env
+
+.vercel
+package-lock.json

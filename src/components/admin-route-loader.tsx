@@ -23,11 +23,11 @@ export function AdminRouteLoader() {
       const href = anchor.getAttribute("href");
       if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
 
-      const url = new URL(href, window.location.origin);
       const current = `${window.location.pathname}${window.location.search}`;
-      const next = `${url.pathname}${url.search}`;
+      const next = href.startsWith("/") ? href : null;
+      if (!next) return;
 
-      if (url.origin !== window.location.origin || next === current || !url.pathname.startsWith("/admin")) return;
+      if (next === current || !next.startsWith("/admin")) return;
 
       setLoading(true);
       if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
