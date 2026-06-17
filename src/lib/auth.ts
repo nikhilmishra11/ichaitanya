@@ -27,19 +27,19 @@ export const authOptions: NextAuthOptions = {
         const email = credentials.email.trim();
         const password = credentials.password;
 
+        const envEmail = process.env.ADMIN_EMAIL?.trim();
+        const envPassword = process.env.ADMIN_PASSWORD;
+        if (envEmail && envPassword && email === envEmail && secureCompare(password, envPassword)) {
+          return { id: "env-admin", email: envEmail, name: "Admin" };
+        }
+
         try {
           const admin = await prisma.admin.findUnique({ where: { email } });
           if (admin && await bcrypt.compare(password, admin.password)) {
             return { id: admin.id, email: admin.email, name: admin.name };
           }
         } catch (error) {
-          console.warn("Database admin login unavailable; trying env admin fallback.", error);
-        }
-
-        const envEmail = process.env.ADMIN_EMAIL?.trim();
-        const envPassword = process.env.ADMIN_PASSWORD;
-        if (envEmail && envPassword && email === envEmail && secureCompare(password, envPassword)) {
-          return { id: "env-admin", email: envEmail, name: "Admin" };
+          console.warn("Database admin login unavailable.", error);
         }
 
         return null;
