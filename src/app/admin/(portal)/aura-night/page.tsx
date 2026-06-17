@@ -20,11 +20,7 @@ function auraKey(key: string) {
 }
 
 export default async function AuraNightPage() {
-  const aura = await prisma.program.findUnique({
-    where: { slug: "aura-night" },
-    include: { bookings: { include: { batch: true, payment: true } }, batches: true }
-  });
-  const configs = await prisma.systemConfig.findMany({ where: { group: "aura-night" } });
+  const { aura, configs } = await getAuraNightData();
   const config = Object.fromEntries(configs.map((item) => [item.key, item.value]));
   const bookings = aura?.bookings ?? [];
   const paidBookings = bookings.filter((booking) => booking.status === "PAID");
@@ -265,6 +261,22 @@ export default async function AuraNightPage() {
       </Card>
     </div>
   );
+}
+
+async function getAuraNightData() {
+  try {
+    const [aura, configs] = await Promise.all([
+      prisma.program.findUnique({
+        where: { slug: "aura-night" },
+        include: { bookings: { include: { batch: true, payment: true } }, batches: true }
+      }),
+      prisma.systemConfig.findMany({ where: { group: "aura-night" } })
+    ]);
+    return { aura, configs };
+  } catch (error) {
+    console.warn("Aura Night database unavailable; rendering empty journey view.", error);
+    return { aura: null, configs: [] };
+  }
 }
 
 function Stat({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) {

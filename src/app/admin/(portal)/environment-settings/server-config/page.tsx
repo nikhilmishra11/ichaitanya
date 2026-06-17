@@ -14,7 +14,7 @@ export const revalidate = 0;
 const get = (config: Record<string, string>, key: string, fallback = "") => config[key] ?? fallback;
 
 export default async function ServerConfigPage() {
-  const configs = await prisma.systemConfig.findMany({ orderBy: [{ group: "asc" }, { key: "asc" }] });
+  const configs = await getServerConfigs();
   const config = metadataMap(configs);
   const health = [
     ["Database", "Healthy"], ["Payment Gateway", "Warning"], ["Zoom", "Healthy"], ["Email Service", "Healthy"], ["WhatsApp", "Warning"], ["Storage", "Healthy"], ["Background Jobs", "Healthy"]
@@ -42,6 +42,15 @@ export default async function ServerConfigPage() {
       </form>
     </div>
   );
+}
+
+async function getServerConfigs() {
+  try {
+    return await prisma.systemConfig.findMany({ orderBy: [{ group: "asc" }, { key: "asc" }] });
+  } catch (error) {
+    console.warn("System configuration database unavailable; rendering default configuration view.", error);
+    return [];
+  }
 }
 
 function Stat({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) { return <Card><CardContent className="p-5"><div className="mb-3 flex h-9 w-9 items-center justify-center rounded-md bg-accent/10 text-accent">{icon}</div><p className="text-sm text-muted-foreground">{title}</p><p className="mt-2 font-bold">{value}</p></CardContent></Card>; }

@@ -18,11 +18,7 @@ const meta = (id: string, field: string) => `testimonial_${id}_${field}`;
 
 export default async function TestimonialsAdminPage({ searchParams }: { searchParams: Promise<{ q?: string; program?: string; country?: string; type?: string; status?: string; rating?: string }> }) {
   const params = await searchParams;
-  const [items, configs, programs] = await Promise.all([
-    prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } }),
-    prisma.systemConfig.findMany({ where: { group: "testimonials" } }),
-    prisma.program.findMany({ orderBy: { name: "asc" } })
-  ]);
+  const { items, configs, programs } = await getTestimonialsData();
   const config = metadataMap(configs);
   const enriched = items.map((item) => ({
     ...item,
@@ -95,6 +91,20 @@ export default async function TestimonialsAdminPage({ searchParams }: { searchPa
       </div>
     </div>
   );
+}
+
+async function getTestimonialsData() {
+  try {
+    const [items, configs, programs] = await Promise.all([
+      prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } }),
+      prisma.systemConfig.findMany({ where: { group: "testimonials" } }),
+      prisma.program.findMany({ orderBy: { name: "asc" } })
+    ]);
+    return { items, configs, programs };
+  } catch (error) {
+    console.warn("Testimonials database unavailable; rendering empty social proof view.", error);
+    return { items: [], configs: [], programs: [] };
+  }
 }
 
 function TestimonialForm({ programs }: { programs: { id: string; name: string }[] }) {

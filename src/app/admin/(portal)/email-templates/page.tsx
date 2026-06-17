@@ -22,11 +22,7 @@ const meta = (id: string, field: string) => `email_template_${id}_${field}`;
 
 export default async function EmailTemplatesPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
   const params = await searchParams;
-  const [templates, logs, configs] = await Promise.all([
-    prisma.emailTemplate.findMany({ orderBy: { name: "asc" } }),
-    prisma.emailLog.findMany({ include: { template: true }, orderBy: { sentAt: "desc" }, take: 30 }),
-    prisma.systemConfig.findMany({ where: { group: "email-templates" } })
-  ]);
+  const { templates, logs, configs } = await getEmailTemplateData();
   const config = metadataMap(configs);
   const enriched = templates.map((template) => ({
     ...template,
@@ -65,6 +61,20 @@ export default async function EmailTemplatesPage({ searchParams }: { searchParam
       </div>
     </div>
   );
+}
+
+async function getEmailTemplateData() {
+  try {
+    const [templates, logs, configs] = await Promise.all([
+      prisma.emailTemplate.findMany({ orderBy: { name: "asc" } }),
+      prisma.emailLog.findMany({ include: { template: true }, orderBy: { sentAt: "desc" }, take: 30 }),
+      prisma.systemConfig.findMany({ where: { group: "email-templates" } })
+    ]);
+    return { templates, logs, configs };
+  } catch (error) {
+    console.warn("Email template database unavailable; rendering empty communication view.", error);
+    return { templates: [], logs: [], configs: [] };
+  }
 }
 
 function TemplateForm({ categories, triggers }: { categories: string[]; triggers: string[] }) {

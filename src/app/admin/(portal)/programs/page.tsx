@@ -20,13 +20,7 @@ function programKey(programId: string, key: string) {
 
 export default async function ProgramsPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
   const params = await searchParams;
-  const [programsRaw, configs] = await Promise.all([
-    prisma.program.findMany({
-      include: { batches: { include: { bookings: true } }, bookings: true },
-      orderBy: { createdAt: "asc" }
-    }),
-    prisma.systemConfig.findMany({ where: { group: "program" } })
-  ]);
+  const { programsRaw, configs } = await getProgramsData();
   const config = Object.fromEntries(configs.map((item) => [item.key, item.value]));
   const allBookings = programsRaw.flatMap((program) => program.bookings);
   const totalRevenue = allBookings.filter((booking) => booking.status === "PAID").reduce((sum, booking) => sum + (booking.currency === "USD" ? booking.amount * 83 : booking.amount), 0);
@@ -164,6 +158,22 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
       <ProgramCards programs={programs} />
     </div>
   );
+}
+
+async function getProgramsData() {
+  try {
+    const [programsRaw, configs] = await Promise.all([
+      prisma.program.findMany({
+        include: { batches: { include: { bookings: true } }, bookings: true },
+        orderBy: { createdAt: "asc" }
+      }),
+      prisma.systemConfig.findMany({ where: { group: "program" } })
+    ]);
+    return { programsRaw, configs };
+  } catch (error) {
+    console.warn("Programs database unavailable; rendering empty management view.", error);
+    return { programsRaw: [], configs: [] };
+  }
 }
 
 function ProgramForm() {

@@ -21,11 +21,7 @@ export default async function EmailLogsPage({ searchParams }: { searchParams: Pr
     ...(params.template && params.template !== "ALL" ? { templateId: params.template } : {}),
     ...(params.program && params.program !== "ALL" ? { booking: { is: { programId: params.program } } } : {})
   };
-  const [logs, templates, programs] = await Promise.all([
-    prisma.emailLog.findMany({ where, include: { template: true, booking: { include: { program: true } } }, orderBy: { sentAt: "desc" }, take: 150 }),
-    prisma.emailTemplate.findMany({ orderBy: { name: "asc" } }),
-    prisma.program.findMany({ orderBy: { name: "asc" } })
-  ]);
+  const { logs, templates, programs } = await getEmailLogsData(where);
   const sentToday = logs.filter((log) => sameDay(log.sentAt, new Date())).length;
   const delivered = logs.filter((log) => log.status === "SENT" || log.status === "DELIVERED").length;
   const opened = Math.floor(delivered * 0.62);
@@ -52,6 +48,20 @@ export default async function EmailLogsPage({ searchParams }: { searchParams: Pr
       <Card><CardHeader><CardTitle>Exports</CardTitle></CardHeader><CardContent className="flex flex-wrap gap-2"><Button asChild variant="outline"><a href="/api/email-logs/export"><Download className="h-4 w-4" /> CSV</a></Button><Button variant="outline">Excel</Button><Button variant="outline">PDF</Button><Button variant="outline">Communication Report</Button><Button variant="outline">Automation Report</Button><Button variant="outline">Failure Report</Button></CardContent></Card>
     </div>
   );
+}
+
+async function getEmailLogsData(where: Prisma.EmailLogWhereInput) {
+  try {
+    const [logs, templates, programs] = await Promise.all([
+      prisma.emailLog.findMany({ where, include: { template: true, booking: { include: { program: true } } }, orderBy: { sentAt: "desc" }, take: 150 }),
+      prisma.emailTemplate.findMany({ orderBy: { name: "asc" } }),
+      prisma.program.findMany({ orderBy: { name: "asc" } })
+    ]);
+    return { logs, templates, programs };
+  } catch (error) {
+    console.warn("Email logs database unavailable; rendering empty audit view.", error);
+    return { logs: [], templates: [], programs: [] };
+  }
 }
 
 function trend(dates: Date[]) { return Array.from({ length: 14 }).map((_, i) => { const d = new Date(); d.setDate(d.getDate() - (13 - i)); const k = d.toISOString().slice(5, 10); return { label: k, value: dates.filter((x) => x.toISOString().slice(5, 10) === k).length }; }); }

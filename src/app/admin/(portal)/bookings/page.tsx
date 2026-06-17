@@ -50,20 +50,7 @@ export default async function BookingsPage({ searchParams }: { searchParams: Pro
   const where = buildWhere(params);
   const orderBy = buildOrder(params);
 
-  const [programs, batches, countries, allFiltered, bookings, totalCount] = await Promise.all([
-    prisma.program.findMany({ orderBy: { name: "asc" } }),
-    prisma.batch.findMany({ include: { program: true, bookings: true }, orderBy: { startsAt: "asc" } }),
-    prisma.booking.groupBy({ by: ["country"], _count: true, orderBy: { _count: { country: "desc" } } }),
-    prisma.booking.findMany({ where, include: { program: true, batch: true, payment: true } }),
-    prisma.booking.findMany({
-      where,
-      include: { program: true, batch: true, payment: true, emailLogs: { include: { template: true }, orderBy: { sentAt: "desc" }, take: 8 } },
-      orderBy,
-      skip: (page - 1) * pageSize,
-      take: pageSize
-    }),
-    prisma.booking.count({ where })
-  ]);
+  const { programs, batches, countries, allFiltered, bookings, totalCount } = await getBookingsData(where, orderBy, page);
 
   const paid = allFiltered.filter((booking) => booking.status === "PAID");
   const pending = allFiltered.filter((booking) => booking.status === "PENDING");
@@ -205,6 +192,29 @@ export default async function BookingsPage({ searchParams }: { searchParams: Pro
       </div>
     </div>
   );
+}
+
+async function getBookingsData(where: Prisma.BookingWhereInput, orderBy: Prisma.BookingOrderByWithRelationInput, page: number) {
+  try {
+    const [programs, batches, countries, allFiltered, bookings, totalCount] = await Promise.all([
+      prisma.program.findMany({ orderBy: { name: "asc" } }),
+      prisma.batch.findMany({ include: { program: true, bookings: true }, orderBy: { startsAt: "asc" } }),
+      prisma.booking.groupBy({ by: ["country"], _count: true, orderBy: { _count: { country: "desc" } } }),
+      prisma.booking.findMany({ where, include: { program: true, batch: true, payment: true } }),
+      prisma.booking.findMany({
+        where,
+        include: { program: true, batch: true, payment: true, emailLogs: { include: { template: true }, orderBy: { sentAt: "desc" }, take: 8 } },
+        orderBy,
+        skip: (page - 1) * pageSize,
+        take: pageSize
+      }),
+      prisma.booking.count({ where })
+    ]);
+    return { programs, batches, countries, allFiltered, bookings, totalCount };
+  } catch (error) {
+    console.warn("Bookings database unavailable; rendering empty operations view.", error);
+    return { programs: [], batches: [], countries: [], allFiltered: [], bookings: [], totalCount: 0 };
+  }
 }
 
 function buildWhere(params: BookingParams): Prisma.BookingWhereInput {

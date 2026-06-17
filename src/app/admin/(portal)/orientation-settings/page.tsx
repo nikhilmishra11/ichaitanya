@@ -18,15 +18,7 @@ function slotKey(batchId: string, key: string) {
 }
 
 export default async function OrientationSettingsPage() {
-  const orientation = await prisma.program.findUnique({ where: { slug: "orientation" } });
-  const [configs, slots] = await Promise.all([
-    prisma.systemConfig.findMany({ where: { group: "orientation" } }),
-    prisma.batch.findMany({
-      where: orientation ? { programId: orientation.id } : { id: "__none__" },
-      include: { bookings: { include: { payment: true } } },
-      orderBy: { startsAt: "asc" }
-    })
-  ]);
+  const { orientation, configs, slots } = await getOrientationData();
   const config = Object.fromEntries(configs.map((item) => [item.key, item.value]));
   const bookings = slots.flatMap((slot) => slot.bookings);
   const paidBookings = bookings.filter((booking) => booking.status === "PAID");
@@ -178,6 +170,24 @@ export default async function OrientationSettingsPage() {
       </div>
     </div>
   );
+}
+
+async function getOrientationData() {
+  try {
+    const orientation = await prisma.program.findUnique({ where: { slug: "orientation" } });
+    const [configs, slots] = await Promise.all([
+      prisma.systemConfig.findMany({ where: { group: "orientation" } }),
+      prisma.batch.findMany({
+        where: orientation ? { programId: orientation.id } : { id: "__none__" },
+        include: { bookings: { include: { payment: true } } },
+        orderBy: { startsAt: "asc" }
+      })
+    ]);
+    return { orientation, configs, slots };
+  } catch (error) {
+    console.warn("Orientation database unavailable; rendering empty session view.", error);
+    return { orientation: null, configs: [], slots: [] };
+  }
 }
 
 function Stat({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) {

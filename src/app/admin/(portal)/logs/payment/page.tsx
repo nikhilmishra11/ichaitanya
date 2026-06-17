@@ -23,11 +23,7 @@ export default async function PaymentLogsPage({ searchParams }: { searchParams: 
     ...(params.country && params.country !== "ALL" ? { booking: { country: params.country } } : {}),
     ...(params.program && params.program !== "ALL" ? { booking: { programId: params.program } } : {})
   };
-  const [payments, programs, countries] = await Promise.all([
-    prisma.payment.findMany({ where, include: { booking: { include: { program: true, batch: true } }, logs: true }, orderBy: { createdAt: "desc" }, take: 120 }),
-    prisma.program.findMany({ orderBy: { name: "asc" } }),
-    prisma.booking.groupBy({ by: ["country"], _count: true })
-  ]);
+  const { payments, programs, countries } = await getPaymentLogsData(where);
   const totalRevenue = payments.filter((p) => p.status === "PAID").reduce((sum, p) => sum + toInr(p.amount, p.currency), 0);
   const todayRevenue = payments.filter((p) => p.status === "PAID" && sameDay(p.createdAt, new Date())).reduce((sum, p) => sum + toInr(p.amount, p.currency), 0);
   const successful = payments.filter((p) => p.status === "PAID").length;
@@ -52,6 +48,21 @@ export default async function PaymentLogsPage({ searchParams }: { searchParams: 
     </div>
   );
 }
+
+async function getPaymentLogsData(where: Prisma.PaymentWhereInput) {
+  try {
+    const [payments, programs, countries] = await Promise.all([
+      prisma.payment.findMany({ where, include: { booking: { include: { program: true, batch: true } }, logs: true }, orderBy: { createdAt: "desc" }, take: 120 }),
+      prisma.program.findMany({ orderBy: { name: "asc" } }),
+      prisma.booking.groupBy({ by: ["country"], _count: true })
+    ]);
+    return { payments, programs, countries };
+  } catch (error) {
+    console.warn("Payment logs database unavailable; rendering empty finance view.", error);
+    return { payments: [], programs: [], countries: [] };
+  }
+}
+
 function toInr(amount: number, currency: string) { return currency === "USD" ? amount * 83 : amount; }
 function sameDay(a: Date, b: Date) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
 function trend(items: { date: Date; value: number }[]) { return Array.from({ length: 14 }).map((_, i) => { const d = new Date(); d.setDate(d.getDate() - (13 - i)); const k = d.toISOString().slice(5, 10); return { label: k, value: items.filter((x) => x.date.toISOString().slice(5, 10) === k).reduce((s, x) => s + x.value, 0) }; }); }
