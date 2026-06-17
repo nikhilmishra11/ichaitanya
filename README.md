@@ -78,15 +78,16 @@ Use the matching env profile for the environment you want to run:
 Local test:
 
 - Copy `.env.local.example` to `.env`
-- Keep `NEXTAUTH_URL` as `http://localhost:3000`
-- Use the seeded admin credentials from the admin login screen
+- Set a local `ADMIN_PASSWORD` before seeding the database
+- The admin login form does not prefill credentials
 
 Production or Vercel preview:
 
 - Copy `.env.production.example` to `.env`
-- Set `NEXTAUTH_URL` to your deployed Vercel URL
 - Replace `NEXTAUTH_SECRET` with a long random value
+- Set `ADMIN_PASSWORD` as a Vercel environment variable before seeding or creating the admin user
 
 SQLite stays file-based in this project, so it is best suited for local testing and short-lived preview deployments.
+The SQLite file is stored at `prisma/database.db`; use `DATABASE_URL="file:./database.db"` because Prisma resolves the path from `prisma/schema.prisma`.
 
 Operational Razorpay, PayPal, SMTP, WhatsApp, and website settings are stored in `SystemConfig` and managed in the admin portal.

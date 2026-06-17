@@ -60,8 +60,8 @@ export default function LoginClient() {
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="grid gap-4">
-            <Input name="email" type="text" defaultValue="admin" placeholder="Username" autoComplete="username" required disabled={loading} />
-            <Input name="password" type="password" defaultValue="Boldy@_1aekam" autoComplete="current-password" required disabled={loading} />
+            <Input name="email" type="text" placeholder="Username" autoComplete="username" required disabled={loading} />
+            <Input name="password" type="password" placeholder="Password" autoComplete="current-password" required disabled={loading} />
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
             <Button variant="accent" type="submit" disabled={loading}>
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
