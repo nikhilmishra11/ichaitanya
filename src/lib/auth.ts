@@ -3,6 +3,15 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
+function secureCompare(a: string, b: string) {
+  if (a.length !== b.length) return false;
+  let mismatch = 0;
+  for (let index = 0; index < a.length; index += 1) {
+    mismatch |= a.charCodeAt(index) ^ b.charCodeAt(index);
+  }
+  return mismatch === 0;
+}
+
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   pages: { signIn: "/admin/login" },
@@ -15,11 +24,25 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) return null;
-        const admin = await prisma.admin.findUnique({ where: { email: credentials.email.trim() } });
-        if (!admin) return null;
-        const valid = await bcrypt.compare(credentials.password, admin.password);
-        if (!valid) return null;
-        return { id: admin.id, email: admin.email, name: admin.name };
+        const email = credentials.email.trim();
+        const password = credentials.password;
+
+        try {
+          const admin = await prisma.admin.findUnique({ where: { email } });
+          if (admin && await bcrypt.compare(password, admin.password)) {
+            return { id: admin.id, email: admin.email, name: admin.name };
+          }
+        } catch (error) {
+          console.warn("Database admin login unavailable; trying env admin fallback.", error);
+        }
+
+        const envEmail = process.env.ADMIN_EMAIL?.trim();
+        const envPassword = process.env.ADMIN_PASSWORD;
+        if (envEmail && envPassword && email === envEmail && secureCompare(password, envPassword)) {
+          return { id: "env-admin", email: envEmail, name: "Admin" };
+        }
+
+        return null;
       }
     })
   ],
