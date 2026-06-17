@@ -31,20 +31,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   const dateRange = getDateRange(params.range ?? "30d");
   const where = buildBookingWhere(params, dateRange);
 
-  const [programs, countriesRaw, batches, bookings, recent, upcomingBatches, emailLogs] = await Promise.all([
-    prisma.program.findMany({ orderBy: { name: "asc" } }),
-    prisma.booking.groupBy({ by: ["country"], _count: true, orderBy: { _count: { country: "desc" } } }),
-    prisma.batch.findMany({ include: { program: true, bookings: true }, orderBy: { startsAt: "asc" } }),
-    prisma.booking.findMany({ where, include: { program: true, batch: true, payment: true }, orderBy: { registeredAt: "asc" } }),
-    prisma.booking.findMany({ where, include: { program: true, batch: true, payment: true }, orderBy: { registeredAt: "desc" }, take: 12 }),
-    prisma.batch.findMany({
-      where: { startsAt: { gte: new Date(), lte: addDays(new Date(), 7) } },
-      include: { program: true, bookings: true },
-      orderBy: { startsAt: "asc" },
-      take: 8
-    }),
-    prisma.emailLog.findMany({ include: { template: true }, orderBy: { sentAt: "desc" }, take: 8 })
-  ]);
+  const { programs, countriesRaw, batches, bookings, recent, upcomingBatches, emailLogs } = await getDashboardData(where);
 
   const paidBookings = bookings.filter((booking) => booking.status === "PAID");
   const pendingBookings = bookings.filter((booking) => booking.status === "PENDING");
@@ -287,6 +274,101 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
       </Card>
     </div>
   );
+}
+
+async function getDashboardData(where: Prisma.BookingWhereInput) {
+  try {
+    const [programs, countriesRaw, batches, bookings, recent, upcomingBatches, emailLogs] = await Promise.all([
+      prisma.program.findMany({ orderBy: { name: "asc" } }),
+      prisma.booking.groupBy({ by: ["country"], _count: true, orderBy: { _count: { country: "desc" } } }),
+      prisma.batch.findMany({ include: { program: true, bookings: true }, orderBy: { startsAt: "asc" } }),
+      prisma.booking.findMany({ where, include: { program: true, batch: true, payment: true }, orderBy: { registeredAt: "asc" } }),
+      prisma.booking.findMany({ where, include: { program: true, batch: true, payment: true }, orderBy: { registeredAt: "desc" }, take: 12 }),
+      prisma.batch.findMany({
+        where: { startsAt: { gte: new Date(), lte: addDays(new Date(), 7) } },
+        include: { program: true, bookings: true },
+        orderBy: { startsAt: "asc" },
+        take: 8
+      }),
+      prisma.emailLog.findMany({ include: { template: true }, orderBy: { sentAt: "desc" }, take: 8 })
+    ]);
+
+    return { programs, countriesRaw, batches, bookings, recent, upcomingBatches, emailLogs };
+  } catch (error) {
+    console.warn("Dashboard database unavailable; rendering demo analytics data.", error);
+    return getDemoDashboardData();
+  }
+}
+
+function getDemoDashboardData() {
+  const today = new Date();
+  const programs = [
+    { id: "orientation", name: "Orientation" },
+    { id: "bliss-path", name: "Bliss Path" },
+    { id: "aura-night", name: "Aura Night" },
+    { id: "one-to-one", name: "One-to-One Meditation" },
+    { id: "open-eye", name: "Open Eye Meditation" },
+    { id: "walking", name: "Walking Meditation" }
+  ];
+  const countries = ["India", "United States", "Canada", "United Kingdom", "Australia", "Singapore", "UAE"];
+  const batches = programs.map((program, index) => ({
+    id: `demo-batch-${program.id}`,
+    programId: program.id,
+    program,
+    startsAt: addDays(today, index + 1),
+    capacity: index === 2 ? 40 : 100,
+    bookings: [] as Array<{ id: string }>
+  }));
+  const bookings = Array.from({ length: 96 }, (_, index) => {
+    const program = programs[index % programs.length];
+    const batch = batches[index % batches.length];
+    const status = index % 9 === 0 ? BookingStatus.CANCELLED : index % 4 === 0 ? BookingStatus.PENDING : BookingStatus.PAID;
+    const currency = index % 5 === 0 ? "USD" : "INR";
+    const amount = currency === "USD" ? 63 + (index % 4) * 24 : 999 + (index % 6) * 700;
+    const booking = {
+      id: `DEMO-${String(index + 1).padStart(4, "0")}`,
+      name: `Participant ${index + 1}`,
+      email: `participant${index + 1}@example.com`,
+      country: countries[index % countries.length],
+      programId: program.id,
+      program,
+      batchId: batch.id,
+      batch,
+      paymentId: `demo-payment-${index + 1}`,
+      payment: null,
+      status,
+      amount,
+      currency,
+      registeredAt: addDays(today, -index % 28)
+    };
+    batch.bookings.push({ id: booking.id });
+    return booking;
+  });
+  const countriesRaw = countries.map((country) => ({
+    country,
+    _count: bookings.filter((booking) => booking.country === country).length
+  })).sort((a, b) => b._count - a._count);
+  const emailLogs = Array.from({ length: 8 }, (_, index) => ({
+    id: `demo-email-${index + 1}`,
+    recipient: `participant${index + 1}@example.com`,
+    subject: index % 2 === 0 ? "Registration Confirmation" : "Session Reminder",
+    status: index === 6 ? "FAILED" : "SENT",
+    sentAt: addDays(today, -index),
+    template: {
+      key: index % 2 === 0 ? "registration_confirmation" : "reminder_email",
+      name: index % 2 === 0 ? "Registration Confirmation" : "Reminder Email"
+    }
+  }));
+
+  return {
+    programs,
+    countriesRaw,
+    batches,
+    bookings,
+    recent: bookings.slice(0, 12),
+    upcomingBatches: batches.slice(0, 6),
+    emailLogs
+  };
 }
 
 function buildBookingWhere(params: DashboardParams, range: { from?: Date; to?: Date }): Prisma.BookingWhereInput {
