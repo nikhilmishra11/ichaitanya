@@ -6,13 +6,13 @@ import { ModeToggle } from "@/components/mode-toggle";
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-background">
-      <header className="sticky top-0 z-40 border-b bg-[#FAF7F2]/90 backdrop-blur dark:bg-background/90">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6">
+    <div className="min-h-screen bg-background dark:bg-background">
+      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/88 backdrop-blur dark:bg-background/90">
+        <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/ichaitanya-logo.png" alt="iChaitanya" width={260} height={56} className="h-14 w-auto object-contain sm:h-16" priority />
+            <Image src="/ichaitanya-logo.png" alt="iChaitanya" width={260} height={56} className="h-12 w-auto object-contain sm:h-16" priority />
           </Link>
-          <nav className="hidden items-center gap-5 text-sm font-medium text-muted-foreground lg:flex">
+          <nav className="hidden items-center gap-6 text-sm font-semibold text-muted-foreground lg:flex">
             {publicNav.map((item) => (
               <Link key={item.href} href={item.href} className="hover:text-accent">
                 {item.label}
@@ -28,7 +28,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       {children}
-      <footer className="border-t bg-primary text-primary-foreground">
+      <footer className="border-t border-primary/10 bg-primary text-primary-foreground">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <div className="mb-4 flex items-center gap-3">

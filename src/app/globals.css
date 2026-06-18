@@ -3,27 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --background: 35 44% 96%;
-  --foreground: 16 41% 12%;
-  --card: 0 0% 100%;
-  --card-foreground: 16 41% 12%;
-  --muted: 28 25% 91%;
-  --muted-foreground: 20 12% 39%;
-  --border: 24 22% 86%;
-  --input: 24 22% 86%;
-  --ring: 12 78% 60%;
+  --background: 30 100% 98%;
+  --foreground: 24 9% 10%;
+  --card: 30 55% 99%;
+  --card-foreground: 24 9% 10%;
+  --muted: 26 48% 94%;
+  --muted-foreground: 24 9% 36%;
+  --border: 26 34% 88%;
+  --input: 26 34% 88%;
+  --ring: 10 82% 55%;
 }
 
 .dark {
-  --background: 16 41% 8%;
-  --foreground: 35 44% 96%;
-  --card: 16 34% 12%;
-  --card-foreground: 35 44% 96%;
-  --muted: 17 25% 18%;
-  --muted-foreground: 24 18% 72%;
-  --border: 18 20% 22%;
-  --input: 18 20% 22%;
-  --ring: 12 78% 60%;
+  --background: 22 24% 8%;
+  --foreground: 30 100% 98%;
+  --card: 22 21% 12%;
+  --card-foreground: 30 100% 98%;
+  --muted: 22 16% 18%;
+  --muted-foreground: 26 20% 72%;
+  --border: 22 13% 24%;
+  --input: 22 13% 24%;
+  --ring: 10 82% 55%;
 }
 
 * {
@@ -32,10 +32,30 @@
 
 html {
   font-size: 18px;
+  background: hsl(var(--background));
 }
 
 body {
   @apply bg-background text-foreground antialiased;
+  font-feature-settings: "kern" 1, "liga" 1;
+  letter-spacing: 0;
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  letter-spacing: 0;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
 }
 
 @keyframes breathe {

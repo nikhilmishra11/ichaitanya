@@ -12,17 +12,17 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: { DEFAULT: "#2B1712", foreground: "#FAF7F2" },
-        accent: { DEFAULT: "#E86A4A", foreground: "#2B1712" },
+        primary: { DEFAULT: "#261915", foreground: "#FFF9F4" },
+        accent: { DEFAULT: "#E94B2E", foreground: "#261915" },
         muted: { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
         card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" }
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "sans-serif"],
-        serif: ["var(--font-playfair)", "Playfair Display", "serif"]
+        sans: ["var(--font-sans)", "Nunito Sans", "sans-serif"],
+        serif: ["var(--font-serif)", "Cormorant Garamond", "serif"]
       },
       boxShadow: {
-        soft: "0 24px 70px rgba(43, 23, 18, 0.12)"
+        soft: "0 18px 54px rgba(38, 25, 21, 0.08)"
       }
     }
   },
