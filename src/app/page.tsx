@@ -13,7 +13,8 @@ export default function HomePage() {
           <div className="flex flex-col justify-center">
             <p className="mb-5 w-fit rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-accent">Live guided Zoom batches</p>
             <h1 className="font-serif text-4xl font-bold leading-[1.08] text-primary sm:text-6xl dark:text-foreground">
-              You&apos;ve already felt a calm mind. <span className="text-accent">Now return to it, consciously.</span>
+              You&apos;ve already felt a calm mind.
+              <span className="block text-accent">Now return to it, consciously.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
               Return to your natural state of calm, and discover meditation as something already within you. Live 40 min iChaitanya Dhyan orientation with Umesh Misra.
